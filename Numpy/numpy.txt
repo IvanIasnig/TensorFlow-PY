@@ -1,0 +1,11 @@
+Praticamente il discorso è che Python è lento ad operare coi vettori (ricordarsi che ogni cosa è un vettore di 0 e 1)
+Numpy esegue un ottimizzazione della vettorizzazione chiamata Broadcasting che di fatto elimina il loop per fare i calcoli
+
+------------------------------------------------
+
+1. `shape`: Una tupla che rappresenta la forma dell'array, ovvero il numero di elementi lungo ogni dimensione.
+2. `ndim`: Il numero di dimensioni dell'array.
+3. `dtype`: Un oggetto `dtype` che descrive il tipo di dati degli elementi dell'array.
+4. `size`: Il numero totale di elementi nell'array.
+5. `itemsize`: La dimensione (in byte) di ciascun elemento dell'array.
+6. `strides`: Una tupla di interi che indica il numero di byte da saltare nella memoria per passare al successivo elemento lungo ogni dimensione dell'array.
