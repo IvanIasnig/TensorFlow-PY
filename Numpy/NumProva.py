@@ -40,3 +40,4 @@ print(a3.itemsize) #itemsize = 4
 
 print(a1.strides) #strides = (4,)
 print(a2.strides) #strides = (8,8)
+
