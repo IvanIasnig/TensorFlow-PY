@@ -64,3 +64,17 @@ print(random_array2)
 random_array3 = np.random.rand(5,3)
 print(random_array3)
 """
+
+#RANDOM SEED
+
+np.random.seed(seed=42)
+random_array_4 = np.random.randint(10, size=(3, 5))
+print(random_array_4) 
+
+random_array_5 = np.random.randint(10, size=(3, 5))
+print(random_array_5) 
+
+#randomizzatore sicuro
+#import secrets
+#def secure_rng(min_value, max_value):
+#    return secrets.randbelow(max_value - min_value + 1) + min_value

@@ -18,3 +18,8 @@ Numpy esegue un ottimizzazione della vettorizzazione chiamata Broadcasting che d
 4. `random_array`: Questo array viene creato utilizzando la funzione `np.random.randint()`, che genera un array di numeri interi casuali nell'intervallo specificato. In questo caso, l'intervallo va da 0 (incluso) a 10 (escluso), e la forma dell'array è `(3, 5)`. Il risultato è un array 3x5 con numeri interi casuali tra 0 e 9.
 5. `random_array2`: Questo array viene creato utilizzando la funzione `np.random.random()`, che genera un array di numeri casuali tra 0 (incluso) e 1 (escluso) con la forma specificata `(3, 5)`. Il risultato è un array 3x5 con valori decimali casuali tra 0 e 1.
 6. `random_array3`: Questo array viene creato utilizzando la funzione `np.random.rand()`, che genera un array di numeri casuali tra 0 (incluso) e 1 (escluso) con la forma specificata `(5, 3)`. A differenza di `np.random.random()`, questa funzione accetta direttamente le dimensioni dell'array come argomenti separati invece di una tupla. Il risultato è un array 5x3 con valori decimali casuali tra 0 e 1.
+
+----------------------RANDOM SEED--------------------------
+
+Viene impostato un seed fisso per garantire che l'output sia riproducibile e consistente ad ogni esecuzione. L'array generato ha 3 righe e 5 colonne, con numeri interi casuali compresi tra 0 e 9 (incluso 0, escluso 10).
+secrets utilizza un generatore di numeri casuali crittograficamente sicuro (CSPRNG)
