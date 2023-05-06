@@ -22,4 +22,23 @@ Numpy esegue un ottimizzazione della vettorizzazione chiamata Broadcasting che d
 ----------------------RANDOM SEED--------------------------
 
 Viene impostato un seed fisso per garantire che l'output sia riproducibile e consistente ad ogni esecuzione. L'array generato ha 3 righe e 5 colonne, con numeri interi casuali compresi tra 0 e 9 (incluso 0, escluso 10).
-secrets utilizza un generatore di numeri casuali crittograficamente sicuro (CSPRNG)
+Secrets utilizza un generatore di numeri casuali crittograficamente sicuro (CSPRNG)
+
+---------------------VIEWING ARRAYS AND MATRICES------------------
+
+1. `x = np.unique(random_array_4)`: La funzione `numpy.unique()` restituisce un array ordinato degli elementi unici dell'input fornito. In questo caso, l'array `random_array_4` viene passato alla funzione e gli elementi unici vengono assegnati alla variabile `x`.
+
+2. `print(random_array_4[0])`: Stampa il primo elemento (indice 0) dell'array `random_array_4`. A seconda delle dimensioni di `random_array_4`, questo potrebbe essere un numero singolo o un sotto-array.
+
+3. `print(random_array_4[1:])`: Stampa tutti gli elementi dell'array `random_array_4` a partire dall'elemento con indice 1 (il secondo elemento) fino alla fine dell'array.
+
+4. `print(random_array_4[:2])`: Stampa gli elementi dell'array `random_array_4` dall'inizio fino all'elemento con indice 2 escluso (cioè, il terzo elemento).
+
+5. `random_array_5 = np.random.randint(10, size=(2,3,4,5))`: Crea un array a 4 dimensioni di numeri interi casuali tra 0 e 9 inclusi, con la forma (2, 3, 4, 5) e assegna l'array risultante alla variabile `random_array_5`.
+    l'array random_array_5 è composto da: 
+    -2 matrici, ciascuna delle quali è composta da:
+    -3 matrici, ciascuna delle quali è composta da:
+    -4 righe, ciascuna delle quali è composta da:
+    -5 elementi, ciascuno dei quali è un numero intero casuale tra 0 e 9 inclusi.
+    
+6. `print(random_array_5[:,:,:,:3])`: Stampa un sotto-array di `random_array_5` che include tutti gli elementi delle prime tre dimensioni e i primi tre elementi (dall'indice 0 all'indice 2 incluso) della quarta dimensione. Questo sotto-array avrà la forma (2, 3, 4, 3).
