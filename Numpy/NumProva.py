@@ -66,23 +66,23 @@ print(random_array3)
 """
 
 #RANDOM SEED
-
+"""
 np.random.seed(seed=42)
 random_array_4 = np.random.randint(10, size=(3, 5))
 print(random_array_4) 
 
-#random_array_5 = np.random.randint(10, size=(3, 5))
-#print(random_array_5) 
+random_array_5 = np.random.randint(10, size=(3, 5))
+print(random_array_5) 
 
 #randomizzatore sicuro
 #import secrets
 #def secure_rng(min_value, max_value):
 #    return secrets.randbelow(max_value - min_value + 1) + min_value
-
+"""
 
 
 #VIEWING ARRAYS AND MATRICES
-
+"""
 x = np.unique(random_array_4)
 print(x)
 print(random_array_4[0])
@@ -93,3 +93,46 @@ random_array_5 = np.random.randint(10, size=(2,3,4,5))
 
 print(random_array_5)
 print(random_array_5[:,:,:,:3]) 
+"""
+
+#MANIPULATING ARRAYS    
+
+a1 = np.array([1, 2, 3])
+
+ones = np.ones(3)
+
+a2 = np.array([[1, 2.0, 3.3], [4, 5, 6.5]])
+
+a3 = np.array([
+    [[1, 2, 3], [4, 5,6],[7, 8, 9]],
+    [[10, 11, 12], [13, 14,15], [16, 17, 18]]   
+               ]) 
+
+x = a1 + ones
+#print(x) 
+x2 = a1 - ones
+#print(x2) 
+x3 = a1 *  a2
+#print(x3)
+x3a = a2 / a1
+#print(x3a)
+x3b = a2 // a1
+#print(x3b)
+x3c = a2 ** a1
+#print(x3c)
+x3d = np.sqrt(a2)
+#print(x3d)
+x3e = a2 % a1
+#print(x3e)
+x3f = np.add(a2, 8)
+#print(x3f)
+x3g = a2 % 2
+#print(x3g)
+x3h = np.exp(a1)
+#print(x3h)
+x3i = np.log(a1)
+#print(x3i)
+
+
+
+

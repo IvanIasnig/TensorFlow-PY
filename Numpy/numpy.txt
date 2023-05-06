@@ -42,3 +42,38 @@ Secrets utilizza un generatore di numeri casuali crittograficamente sicuro (CSPR
     -5 elementi, ciascuno dei quali è un numero intero casuale tra 0 e 9 inclusi.
     
 6. `print(random_array_5[:,:,:,:3])`: Stampa un sotto-array di `random_array_5` che include tutti gli elementi delle prime tre dimensioni e i primi tre elementi (dall'indice 0 all'indice 2 incluso) della quarta dimensione. Questo sotto-array avrà la forma (2, 3, 4, 3).
+
+----------------------MANIPULATING ARRAYS---------------------------
+
+1. `x = a1 + ones`: Aggiunge elemento per elemento gli array `a1` e `ones`. Poiché `ones` è un array di 1, aggiunge 1 a ogni elemento di `a1`. Output: `[2. 3. 4.]`.
+
+2. `x2 = a1 - ones`: Sottrae elemento per elemento gli array `a1` e `ones`. Poiché `ones` è un array di 1, sottrae 1 da ogni elemento di `a1`. Output: `[0. 1. 2.]`.
+
+3. `x3 = a1 * a2`: Moltiplica elemento per elemento gli array `a1` e `a2`. Output: `[[ 1.   4.   9.9] [ 4.  10.  19.5]]`.
+
+4. `x3a = a2 / a1`: Esegue la divisione elemento per elemento tra gli array `a2` e `a1`. Output: `[[1.  1.  1.1] [4.  2.5 2.16666667]]`.
+
+5. `x3b = a2 // a1`: Esegue la divisione intera elemento per elemento tra gli array `a2` e `a1`. Output: `[[1. 1. 1.] [4. 2. 2.]]`.
+
+6. `x3c = a2 ** a1`: Eleva ogni elemento di `a2` alla potenza dell'elemento corrispondente in `a1`. Output: `[[  1.     4.    35.937] [ 64.   625.  753.571]]`.
+
+7. `x3d = np.sqrt(a2)`: Calcola la radice quadrata di ogni elemento in `a2`. Output: `[[1.         1.41421356 1.81659021] [2.         2.23606798 2.54950976]]`.
+
+8. `x3e = a2 % a1`: Calcola il modulo (resto della divisione) elemento per elemento tra gli array `a2` e `a1`. Output: `[[0. 0. 0.3] [0. 1. 0.5]]`.
+
+9. `x3f = np.add(a2, 8)`: Aggiunge 8 a ogni elemento in `a2`. Output: `[[ 9.  10.  11.3] [12.  13.  14.5]]`.
+
+10. `x3g = a2 % 2`: Calcola il modulo rispetto a 2 per ogni elemento in `a2`. Output: `[[1. 0. 1.3] [0. 1. 0.5]]`.
+
+11. `x3h = np.exp(a1)`: Calcola l'esponenziale (e^x) di ogni elemento in `a1`. Output: `[ 2.71828183  7.3890561  20.08553692]`.
+
+12. `x3i = np.log(a1)`: Calcola il logaritmo naturale di ogni elemento in `a1`. Output: `[0.         0.69314718 1.09861229]`.
+
+Per quanto riguarda l'operazione `a2 * a3`, non è possibile effettuarla direttamente come moltiplicazione elemento per elemento perché gli array hanno forme incompatibili:
+
+- `a2` ha forma `(2, 3)`: un array 2D con 2 righe e 3 colonne.
+- `a3` ha forma `(2, 3, 3)`: un array 3D con 2 matrici, ciascuna con 3 righe e 3 colonne.
+
+La moltiplicazione elemento per elemento richiede che gli array abbiano la stessa forma, e in questo caso, le forme di `a2` e `a3` non corrispondono. Pertanto, non è possibile eseguire direttamente l'operazione `a2 * a3`.
+
+Tuttavia, potresti esaminare altre operazioni tra array, come il prodotto scalare, il prodotto esterno o il broadcasting, a seconda del contesto e delle tue esigenze specifiche.
