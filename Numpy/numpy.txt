@@ -77,3 +77,56 @@ Per quanto riguarda l'operazione `a2 * a3`, non è possibile effettuarla diretta
 La moltiplicazione elemento per elemento richiede che gli array abbiano la stessa forma, e in questo caso, le forme di `a2` e `a3` non corrispondono. Pertanto, non è possibile eseguire direttamente l'operazione `a2 * a3`.
 
 Tuttavia, potresti esaminare altre operazioni tra array, come il prodotto scalare, il prodotto esterno o il broadcasting, a seconda del contesto e delle tue esigenze specifiche.
+
+--------------------------AGGREGATION------------------------
+
+1. `np.mean(a2)`: Calcola la media di tutti gli elementi nell'array `a2`. L'output sarà un singolo valore.
+   Output: `3.6333333333333333`
+
+2. `np.max(a2)`: Trova il valore massimo tra tutti gli elementi dell'array `a2`. L'output sarà un singolo valore.
+   Output: `6.5`
+
+3. `np.min(a2)`: Trova il valore minimo tra tutti gli elementi dell'array `a2`. L'output sarà un singolo valore.
+   Output: `1.0`
+
+4. `np.std(a2)`: Calcola la deviazione standard di tutti gli elementi nell'array `a2`. La deviazione standard è una misura della dispersione dei valori in un set di dati. L'output sarà un singolo valore.
+   Output: `1.8226964152656422`
+
+5. `np.var(a2)`: Calcola la varianza di tutti gli elementi nell'array `a2`. La varianza è una misura della dispersione dei valori in un set di dati, simile alla deviazione standard, ma elevata al quadrato. L'output sarà un singolo valore.
+   Output: `3.3222222222222224`
+
+
+Il secondo pezzo di codice:
+
+1. Importa il modulo `time` per misurare il tempo di esecuzione del codice.
+2. Crea un array NumPy di grandi dimensioni (`aBig`) contenente 100 milioni di numeri casuali tra 0 e 1.
+3. Misura il tempo di inizio per l'aggregazione NumPy (`start_time_numpy`).
+4. Calcola la somma degli elementi dell'array `aBig` utilizzando la funzione `np.sum` di NumPy e memorizza il risultato nella variabile `aggNumPy`.
+5. Misura il tempo di fine per l'aggregazione NumPy (`end_time_numpy`).
+6. Calcola il tempo di esecuzione dell'aggregazione NumPy sottraendo il tempo di inizio dal tempo di fine e memorizza il risultato nella variabile `numpy_time`.
+7. Stampa il risultato dell'aggregazione NumPy e il tempo di esecuzione.
+8. Misura il tempo di inizio per l'aggregazione Python (`start_time_python`).
+9. Calcola la somma degli elementi dell'array `aBig` utilizzando la funzione `sum` di Python e memorizza il risultato nella variabile `aggPy`.
+10. Misura il tempo di fine per l'aggregazione Python (`end_time_python`).
+11. Calcola il tempo di esecuzione dell'aggregazione Python sottraendo il tempo di inizio dal tempo di fine e memorizza il risultato nella variabile `python_time`.
+12. Stampa il risultato dell'aggregazione Python e il tempo di esecuzione.
+
+In sostanza, il codice confronta le prestazioni della funzione di aggregazione (somma) fornita da NumPy e quella fornita dal linguaggio Python stesso. Mostra quindi i risultati delle aggregazioni e i tempi di esecuzione per entrambe le funzioni.
+
+----------------------standard deviation and variance-------------
+
+VARIANZA
+
+1. Calcoliamo la media (μ):
+μ = (1 + 100 + 200 + 300 + 4000 + 5000) / 6
+μ = 9601 / 6
+μ = 1600.1667 (arrotondato a quattro decimali)
+
+2. Calcoliamo la somma delle differenze al quadrato tra ogni valore e la media:
+Σ(xi - μ)² = (1 - 1600.1667)² + (100 - 1600.1667)² + (200 - 1600.1667)² + (300 - 1600.1667)² + (4000 - 1600.1667)² + (5000 - 1600.1667)²
+
+Σ(xi - μ)² = 25776801
+
+3. Dividiamo la somma ottenuta per il numero di valori (N):
+Varianza σ² = 25776801 / 6 = 4296133.5
+Standard Deviation	σ =	2072.7116

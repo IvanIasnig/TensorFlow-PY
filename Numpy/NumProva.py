@@ -67,17 +67,17 @@ print(random_array3)
 
 #RANDOM SEED
 """
-np.random.seed(seed=42)
+np.random.seed(seed=18)
 random_array_4 = np.random.randint(10, size=(3, 5))
 print(random_array_4) 
 
 random_array_5 = np.random.randint(10, size=(3, 5))
 print(random_array_5) 
 
-#randomizzatore sicuro
-#import secrets
-#def secure_rng(min_value, max_value):
-#    return secrets.randbelow(max_value - min_value + 1) + min_value
+
+import secrets
+def secure_rng(min_value, max_value):
+    return secrets.randbelow(max_value - min_value + 1) + min_value
 """
 
 
@@ -97,6 +97,7 @@ print(random_array_5[:,:,:,:3])
 
 #MANIPULATING ARRAYS    
 
+"""
 a1 = np.array([1, 2, 3])
 
 ones = np.ones(3)
@@ -132,7 +133,65 @@ x3h = np.exp(a1)
 #print(x3h)
 x3i = np.log(a1)
 #print(x3i)
+"""
+
+#AGGREGATION
+
+"""
+a2 = np.array([[1, 2.0, 3.3], [4, 5, 6.5]])
+
+x = np.mean(a2)
+print(x)
+
+x2 = np.max(a2)
+print(x2)
+
+x3 = np.min(a2)
+print(x3)
+
+x4 = np.std(a2)
+print(x4)
+
+x5 = np.var(a2)
+print(x5)
+"""
 
 
+"""
+import time
 
+aBig = np.random.random(100000000)
+
+start_time_numpy = time.time()
+aggNumPy = np.sum(aBig)
+end_time_numpy = time.time()
+numpy_time = end_time_numpy - start_time_numpy
+
+print("Aggregazione NumPy:", aggNumPy)
+print("Tempo di esecuzione NumPy (secondi):", numpy_time)
+
+start_time_python = time.time()
+aggPy = sum(aBig)
+end_time_python = time.time()
+python_time = end_time_python - start_time_python
+
+print("Aggregazione Python:", aggPy)
+print("Tempo di esecuzione Python (secondi):", python_time)
+
+#standard deviation and variance
+"""
+
+
+high_var_array = np.array([1,100,200,300,4000,5000])
+low_var_array = np.array([2,4,6,8,10])
+
+x=np.var(high_var_array)
+y=np.var(low_var_array)
+
+print(x,y)
+
+import matplotlib.pyplot as plt
+
+plt.hist(high_var_array)
+#
 
