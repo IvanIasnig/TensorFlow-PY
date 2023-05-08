@@ -193,5 +193,5 @@ print(x,y)
 import matplotlib.pyplot as plt
 
 plt.hist(high_var_array)
-#
 
+plt.show
