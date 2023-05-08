@@ -130,3 +130,101 @@ VARIANZA
 3. Dividiamo la somma ottenuta per il numero di valori (N):
 Varianza σ² = 25776801 / 6 = 4296133.5
 Standard Deviation	σ =	2072.7116
+
+------------------------reshape and transpose---------------------
+
+Il codice seguente esegue le seguenti operazioni:
+
+1. Crea due array NumPy, `a2` e `a3`. `a2` è un array 2D di forma (2, 3), mentre `a3` è un array 3D di forma (2, 3, 3).
+2. Modifica la forma di `a2` per ottenere un nuovo array `q` con la forma (2, 3, 1) utilizzando il metodo `reshape`.
+3. Esegue una moltiplicazione elemento per elemento tra `q` e `a3`, salvando il risultato nell'array `x`.
+4. Calcola la trasposta di `a3` lungo gli assi (0, 2, 1) e salva il risultato nell'array `w`.
+
+------------------------Dot product vs Element-wise ------------------
+
+Il codice seguente esegue le seguenti operazioni:
+
+1. Crea un array 3D `a3` di forma (2, 3, 3).
+2. Inizializza il seed del generatore di numeri casuali di NumPy a 0 con `np.random.seed(seed=0)`.
+3. Crea due matrici casuali, `mat1` e `mat2`, entrambe di forma (5, 3), con elementi interi tra 0 e 9.
+4. Esegue una moltiplicazione elemento per elemento tra `mat1` e `mat2`, salvando il risultato nella variabile `x`.
+5. Calcola il prodotto tra `mat1` e la trasposta di `mat2` (ottenuta con `mat2.T`), salvando il risultato nella variabile `mat3`.
+
+Il prodotto tra due matrici può essere eseguito solo se le dimensioni delle matrici sono compatibili. Le regole per il prodotto matriciale, chiamato anche prodotto scalare, sono le seguenti:
+
+1. Le due matrici devono avere dimensioni compatibili. In particolare, il numero di colonne della prima matrice deve essere uguale al numero di righe della seconda matrice. Se la prima matrice ha dimensioni (m, n) e la seconda matrice ha dimensioni (p, q), allora n deve essere uguale a p (cioè, m x n e p x q).
+2. Il prodotto tra due matrici compatibili risulta in una nuova matrice con dimensioni (m, q).
+3. Per calcolare l'elemento (i, j) della matrice risultante, moltiplica ogni elemento della riga i della prima matrice per l'elemento corrispondente nella colonna j della seconda matrice e somma i prodotti. 
+
+Ad esempio, supponiamo di avere due matrici A e B:
+
+A = | a11 a12 |    B = | b11 b12 |
+    | a21 a22 |        | b21 b22 |
+
+Il prodotto C = A x B sarà:
+
+C11 = a11 * b11 + a12 * b21
+C12 = a11 * b12 + a12 * b22
+C21 = a21 * b11 + a22 * b21
+C22 = a21 * b12 + a22 * b22
+
+Quindi, la matrice risultante C sarà:
+
+C = | C11 C12 |
+    | C21 C22 |
+
+------------------------ESERCIZIO--------------------------------
+Il codice esegue le seguenti operazioni:
+
+1. Inizializza il seed del generatore di numeri casuali di NumPy a 0 con `np.random.seed(seed=0)`.
+2. Crea una matrice `sales_amounts` di forma (5, 3) con elementi casuali interi tra 0 e 19, rappresentando le vendite giornaliere di tre tipi di burro (mandorla, arachidi e anacardi) per cinque giorni (dal lunedì al venerdì).
+3. Crea un DataFrame pandas `weekly_sales` dalla matrice `sales_amounts`, assegnando gli indici (righe) ai giorni della settimana e le colonne ai tipi di burro.
+4. Crea un array NumPy `prices` con i prezzi per ogni tipo di burro (10 per la mandorla, 8 per l'arachide e 12 per l'anacardio).
+5. Crea un DataFrame pandas `butter_prices` dalla matrice `prices` ridimensionata a (1, 3), assegnando l'indice "Price" e le colonne ai tipi di burro.
+6. Calcola le vendite giornaliere totali moltiplicando i prezzi per le vendite giornaliere (`butter_prices.dot(weekly_sales.T)`), salvando il risultato in `daily_sales`.
+7. Aggiunge una nuova colonna "Total ($)" al DataFrame `weekly_sales`, contenente le vendite totali giornaliere calcolate al passo 6 (`daily_sales.T`).
+
+----------------------COMPARIOSON OPERATORS------------------------
+
+1. `a1 < a2` confronta elemento per elemento tra `a1` e `a2`, restituendo un array booleano con la stessa forma di `a2` che indica dove gli elementi di `a1` sono minori degli elementi corrispondenti di `a2`.
+2. `a2 >= 3` confronta elemento per elemento tra `a2` e il valore 3, restituendo un array booleano con la stessa forma di `a2` che indica dove gli elementi di `a2` sono maggiori o uguali a 3.
+3. `a1 == a2` confronta elemento per elemento tra `a1` e `a2`, restituendo un array booleano con la stessa forma di `a2` che indica dove gli elementi di `a1` sono uguali agli elementi corrispondenti di `a2`.
+
+------------------------SORTING ARRAYS-----------------------------
+
+1. `random_array_5 = np.random.randint(10, size=(3,5))`
+   Questa riga genera un array di dimensioni 3x5 (3 righe e 5 colonne) contenente numeri interi casuali tra 0 (incluso) e 10 (escluso). L'array viene assegnato alla variabile `random_array_5`.
+2. `x = np.sort(random_array_5)`
+   Questa riga ordina gli elementi di ogni riga in `random_array_5` in ordine crescente. L'array ordinato viene assegnato alla variabile `x`.
+3. `print(x)`
+   Stampa l'array ordinato `x`.
+4. `y = np.argsort(random_array_5)`
+   Questa riga restituisce gli indici che ordinerebbero ogni riga di `random_array_5`. In altre parole, per ogni riga, viene restituito un array degli indici che, se utilizzati per indicizzare `random_array_5`, produrrebbero l'array ordinato. Questo array di indici viene assegnato alla variabile `y`.
+5. `print(y)`
+   Stampa l'array degli indici di ordinamento `y`.
+6. `z = np.argmin(random_array_5)`
+   Questa riga trova l'indice del valore minimo nell'array `random_array_5`. L'indice viene calcolato come se l'array fosse appiattito (cioè trasformato in un array monodimensionale). Il risultato viene assegnato alla variabile `z`.
+7. `print(z)`
+   Stampa l'indice del valore minimo `z`.
+8. `za = np.argmax(random_array_5, axis=1)`
+   Questa riga trova gli indici dei valori massimi lungo l'asse delle colonne (asse 1) in `random_array_5`. In altre parole, per ogni riga, viene restituito l'indice del valore massimo. L'array degli indici dei valori massimi viene assegnato alla variabile `za`.
+9. `print(za)`
+   Stampa l'array degli indici dei valori massimi `za`.
+
+------------------------IMAGE TO ARRAY------------------------------------
+
+In questo codice, viene utilizzata la libreria Matplotlib per leggere un'immagine dal file e stamparne alcune proprietà. Matplotlib è una popolare libreria di grafici e visualizzazione in Python. Ora spiegherò ogni riga del codice in modo dettagliato:
+
+1. `from matplotlib.image import imread`
+   Importa la funzione `imread` dal modulo `matplotlib.image`. La funzione `imread` è utilizzata per leggere un'immagine da un file.
+
+2. `serpente = imread("Java_PY.png")`
+   Legge l'immagine dal file "Java_PY.png" utilizzando la funzione `imread` e assegna l'immagine come un array NumPy alla variabile `serpente`. L'array conterrà l'immagine sotto forma di valori numerici, in cui ogni elemento rappresenta un pixel dell'immagine. Per le immagini in bianco e nero, l'array sarà bidimensionale, mentre per le immagini a colori (RGB o RGBA) l'array sarà tridimensionale.
+
+3. `print(serpente.size, serpente.shape, serpente.ndim)`
+   Stampa alcune proprietà dell'array `serpente`:
+   - `serpente.size`: il numero totale di elementi nell'array (cioè il numero totale di pixel dell'immagine).
+   - `serpente.shape`: una tupla che rappresenta le dimensioni dell'array. Per un'immagine RGB, la forma sarà (altezza, larghezza, 3), dove 3 rappresenta i canali R, G e B. Per un'immagine RGBA, la forma sarà (altezza, larghezza, 4), dove 4 rappresenta i canali R, G, B e A (alpha).
+   - `serpente.ndim`: il numero di dimensioni dell'array. Per un'immagine in bianco e nero, sarà 2; per un'immagine a colori (RGB o RGBA), sarà 3.
+
+In sintesi, il codice legge un'immagine dal file "Java_PY.png", la converte in un array NumPy e stampa alcune informazioni sull'array, come il numero totale di pixel, le dimensioni dell'array e il numero di dimensioni dell'array.

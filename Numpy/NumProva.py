@@ -2,9 +2,7 @@ import numpy as np
 """
 a1 = np.array([1, 2, 3])     
 
-
 a2 = np.array([[1, 2.0, 3.3], [4, 5, 6.5]])
-
 
 a3 = np.array([
     [[1, 2, 3], [4, 5,6],[7, 8, 9]],
@@ -180,18 +178,126 @@ print("Tempo di esecuzione Python (secondi):", python_time)
 
 #standard deviation and variance
 """
-
+"""
+import matplotlib.pyplot as plt
 
 high_var_array = np.array([1,100,200,300,4000,5000])
 low_var_array = np.array([2,4,6,8,10])
 
-x=np.var(high_var_array)
-y=np.var(low_var_array)
+x = np.var(high_var_array)
+y = np.var(low_var_array)
 
-print(x,y)
-
-import matplotlib.pyplot as plt
+print(x, y)
 
 plt.hist(high_var_array)
 
-plt.show
+print(plt.show())
+"""
+
+#reshape and transpose
+
+"""
+a2 = np.array([[1, 2.0, 3.3], [4, 5, 6.5]])
+a3 = np.array([
+    [[1, 2, 3], [4, 5,6],[7, 8, 9]],
+    [[10, 11, 12], [13, 14,15], [16, 17, 18]]   
+               ]) 
+
+q = a2.reshape(2,3,1)
+print(q)
+
+x = q * a3
+print(x)
+
+w = a3.T
+print(w)
+"""
+
+#Dot product vs Element-wise 
+"""
+a3 = np.array([
+    [[1, 2, 3], [4, 5,6],[7, 8, 9]],
+    [[10, 11, 12], [13, 14,15], [16, 17, 18]]   
+               ]) 
+
+np.random.seed(seed=0)
+
+mat1 = np.random.randint(10, size=(5, 3))
+mat2 = np.random.randint(10, size=(5, 3))
+print(mat1 , mat2)
+
+x =  mat1 * mat2
+print(x)
+
+#np.dot(mat1, mat2) dot product non si può usare in questo caso perchè abbiamo una colonna di troppo
+
+mat3 = np.dot(mat1, mat2.T)
+print(mat3)
+"""
+
+#ESERCIZIO
+"""
+import pandas as pd
+
+np.random.seed(seed=0)
+sales_amounts = np.random.randint(20, size=(5,3))
+
+weekly_sales = pd.DataFrame(sales_amounts,
+                            index=["Mon", "Tue", "Wed", "Thu", "Fri"],
+                            columns=["Almond butter","Peanut butter","Cashew butter"]
+                            )
+                            
+print(weekly_sales)
+
+prices = np.array([10, 8, 12])
+
+butter_prices = pd.DataFrame(prices.reshape(1, 3),
+                             index=["Price"],
+                             columns=["Almond butter","Peanut butter","Cashew butter"]
+                            )
+
+daily_sales = butter_prices.dot(weekly_sales.T)
+
+weekly_sales["Total ($)"] = daily_sales.T
+
+print(weekly_sales)
+"""
+
+#COMPARIOSON OPERATORS
+
+"""
+a1 = np.array([1, 2, 3])     
+
+a2 = np.array([[1, 2.0, 3.3], [4, 5, 6.5]])
+
+print(a1 < a2)
+print(a2 >= 3)
+print(a1 == a2)
+"""
+
+#SORTING ARRAYS
+
+"""
+random_array_5 = np.random.randint(10, size=(3,5))
+
+x = np.sort(random_array_5)
+print(x)
+
+y = np.argsort(random_array_5)
+print(y)
+
+z = np.argmin(random_array_5)
+print(z)
+
+za = np.argmax(random_array_5, axis=1)
+print(za)
+
+"""
+
+#IMAGE TO ARRAY
+
+from matplotlib.image import imread
+
+serpente = imread("Java_PY.png")
+print(serpente.size, serpente.shape, serpente.ndim)
+
