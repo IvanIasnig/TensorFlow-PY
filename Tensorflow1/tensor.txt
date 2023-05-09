@@ -1,0 +1,18 @@
+A quanto pare non posso usare la mia gpu quindi mi tocca usare google colab tramite jupiter.
+
+Yuppi ci sono riuscitoooo!
+Ho usato il comando-> pip install tensorflow-directml-plugin
+
+Il messaggio del terminale riguarda l'inizializzazione di TensorFlow. breve spiegazione di alcune parti del messaggio:
+1. TensorFlow ha aperto con successo alcune librerie dinamiche necessarie per funzionare correttamente sul tuo sistema (ad esempio, directml.d6f03b303ac3c4f2eeb8ca631688c9757b361310.dll, dxgi.dll, d3d12.dll, Kernel32.dll).
+2. TensorFlow ha trovato un dispositivo compatibile DirectML, che è un'interfaccia di programmazione di applicazioni (API) di Microsoft per l'accelerazione hardware del machine learning. In questo caso, l'adattatore compatibile è una scheda grafica AMD Radeon RX 5700.
+3. TensorFlow è ottimizzato per utilizzare le istruzioni AVX e AVX2 del processore per operazioni critiche in termini di prestazioni.
+4. Viene creato un dispositivo TensorFlow con 13984 MB di memoria sulla GPU. Il dispositivo viene identificato come `/job:localhost/replica:0/task:0/device:GPU:0`.
+In sintesi, il messaggio indica che TensorFlow si sta inizializzando correttamente e sta utilizzando la tua GPU AMD Radeon RX 5700 per accelerare i calcoli.
+
+----------------------------
+
+nel file comparazione ho comparato un modello di traning ResNet-50 (che gira molto meglio sulla GPU) per vedere le differenze di performace e:
+Tempo impiegato per l'addestramento sulla GPU: 17.08 secondi
+Tempo impiegato per l'addestramento sulla CPU: 112.33 secondi
+Quindi funziona tutto correttamente
