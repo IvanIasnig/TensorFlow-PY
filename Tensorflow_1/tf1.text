@@ -1,0 +1,34 @@
+Creazione di diversi tipi di tensori:
+Il codice inizia importando il modulo tensorflow e creando diversi tipi di tensori:
+- `scalar` è uno scalare, ovvero un singolo numero;
+- `vector` è un vettore, ovvero un insieme di numeri che rappresenta una grandezza con direzione, come la velocità e la direzione del vento;
+- `matrix` è una matrice, ovvero un array bidimensionale di numeri;
+- `another_matrix` è un'altra matrice, ma in questo caso, i numeri sono in virgola mobile e il tipo di dato è specificato come `tf.float16`;
+- `tensor` è un tensore tridimensionale, ovvero un array di numeri organizzato in tre dimensioni.
+
+-------------------------Creating tensors-----------------------------
+
+Tensori costanti e variabili:
+- `changable_tensor` è un tensore variabile, ovvero un tensore i cui valori possono essere modificati;
+- `unchangable_tensor` è un tensore costante, ovvero un tensore i cui valori non possono essere modificati.
+Successivamente, il codice mostra come modificare un valore all'interno del tensore variabile utilizzando il metodo `assign()`. 
+Infine, viene mostrato che il tentativo di modificare un tensore costante utilizzando lo stesso metodo non funziona, poiché i tensori costanti non possono essere modificati.
+Raramente mi capiterà di dover scegliere tra i due, in ogni caso è meglio usare constant.
+
+-------------------------Random tensors---------------------------------
+
+è utile per effettuare una prima randomica calibrazione dei tensori.
+
+Una distribuzione uniforme è un tipo di distribuzione di probabilità in cui tutti gli esiti possibili hanno la stessa probabilità di verificarsi. In altre parole, tutti gli eventi sono equiprobabili. La distribuzione uniforme può essere continua o discreta, a seconda del tipo di variabile a cui si applica.
+1. Distribuzione uniforme continua: Quando la variabile di interesse è continua, la distribuzione uniforme si riferisce a un intervallo finito di valori reali, in cui la probabilità di ogni valore all'interno dell'intervallo è la stessa. Ad esempio, la distribuzione uniforme continua tra 0 e 1 indica che la probabilità di selezionare un numero casuale in questo intervallo è costante. La funzione densità di probabilità (PDF) di una distribuzione uniforme continua è una funzione costante su un intervallo specificato e zero al di fuori di esso.
+2. Distribuzione uniforme discreta: Quando la variabile di interesse è discreta, la distribuzione uniforme si riferisce a un insieme finito di valori, in cui la probabilità di ogni valore è la stessa. Un esempio comune di distribuzione uniforme discreta è il lancio di un dado equilibrato a sei facce: ogni faccia ha la stessa probabilità di 1/6 di apparire.
+La distribuzione uniforme è spesso utilizzata come modello semplice e di base nelle simulazioni e nei test di vari processi, poiché ogni evento ha la stessa probabilità di verificarsi e nessun evento è favorito rispetto agli altri.
+
+Il codice crea due tensori con valori casuali utilizzando TensorFlow e il modulo `tf.random.Generator`. In entrambi i casi, viene utilizzato lo stesso seed (42), che garantisce che la sequenza di numeri casuali generata sia la stessa se vengono utilizzati gli stessi metodi di generazione.
+1. Nel primo blocco di codice, viene creato un tensore chiamato `random_1`:
+   - `tf.random.Generator.from_seed(42)` inizializza un generatore di numeri casuali con il seed 42;
+   - `random_1.normal(shape=(3,2))` genera un tensore di forma (3,2) con valori casuali estratti da una distribuzione normale (anche detta gaussiana). Infine, il tensore `random_1` viene stampato.
+2. Nel secondo blocco di codice, viene creato un tensore chiamato `random_2`:
+   - `tf.random.Generator.from_seed(42)` inizializza un altro generatore di numeri casuali con lo stesso seed 42;
+   - `random_2.uniform(shape=(3,2))` genera un tensore di forma (3,2) con valori casuali estratti da una distribuzione uniforme. Infine, il tensore `random_2` viene stampato.
+Sebbene entrambi i tensori utilizzino lo stesso seed, la generazione dei numeri casuali è diversa poiché `random_1` utilizza una distribuzione normale, mentre `random_2` utilizza una distribuzione uniforme. Pertanto, i valori all'interno di questi due tensori saranno diversi.
