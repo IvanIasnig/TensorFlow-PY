@@ -1,3 +1,15 @@
+output: Di seguito è riportata una breve descrizione degli elementi del log:
+
+TensorFlow sta aprendo con successo le librerie dinamiche necessarie per funzionare con DirectML e DirectX 12 (dxgi.dll, d3d12.dll, directml.d6f03b303ac3c4f2eeb8ca631688c9757b361310.dll), che sono utilizzate per sfruttare le risorse della GPU per l'elaborazione.
+TensorFlow rileva che il tuo sistema ha un'unità di elaborazione AMD Radeon RX 5700 e la seleziona come dispositivo DirectML.
+TensorFlow ti informa che il binario è ottimizzato per utilizzare le istruzioni AVX e AVX2 per le operazioni critiche per le prestazioni. Se vuoi utilizzare queste istruzioni anche in altre operazioni, dovrai ricompilare TensorFlow con le flag del compilatore appropriate.
+Non riesce a identificare il nodo NUMA della GPU, quindi utilizza il valore predefinito 0. Questo non dovrebbe causare problemi significativi.
+In sintesi, questo output indica che TensorFlow si sta inizializzando correttamente e utilizza la tua GPU AMD Radeon RX 5700 per le operazioni. Non ci sono errori evidenti nel log.
+
+NUMA (Non-Uniform Memory Access) è un'architettura di memoria utilizzata nei sistemi multiprocessore per consentire a ciascun processore di accedere direttamente alla propria memoria locale e alla memoria di altri processori in modo più efficiente. In un sistema NUMA, i nodi rappresentano unità di elaborazione (processori o gruppi di processori) e le loro memorie locali associate.
+Nel contesto delle GPU, un nodo NUMA si riferisce alla memoria associata a una specifica GPU e al processore a cui è connessa. Identificare correttamente il nodo NUMA della GPU può essere utile per ottimizzare l'allocazione della memoria e la comunicazione tra la GPU e la CPU, migliorando le prestazioni delle applicazioni che utilizzano entrambe le risorse.
+Nel log che hai condiviso, TensorFlow non è stato in grado di identificare il nodo NUMA associato alla tua GPU e ha utilizzato il valore predefinito 0. Sebbene questo possa non essere ottimale per le prestazioni, non dovrebbe causare malfunzionamenti o errori nel funzionamento del tuo programma. In alcuni casi, la mancata identificazione del nodo NUMA può essere dovuta al fatto che il kernel del sistema operativo non è stato compilato con il supporto NUMA abilitato.
+-----------------------------------------------------------------------
 Creazione di diversi tipi di tensori:
 Il codice inizia importando il modulo tensorflow e creando diversi tipi di tensori:
 - `scalar` è uno scalare, ovvero un singolo numero;
@@ -32,3 +44,13 @@ Il codice crea due tensori con valori casuali utilizzando TensorFlow e il modulo
    - `tf.random.Generator.from_seed(42)` inizializza un altro generatore di numeri casuali con lo stesso seed 42;
    - `random_2.uniform(shape=(3,2))` genera un tensore di forma (3,2) con valori casuali estratti da una distribuzione uniforme. Infine, il tensore `random_2` viene stampato.
 Sebbene entrambi i tensori utilizzino lo stesso seed, la generazione dei numeri casuali è diversa poiché `random_1` utilizza una distribuzione normale, mentre `random_2` utilizza una distribuzione uniforme. Pertanto, i valori all'interno di questi due tensori saranno diversi.
+
+----------------------Shuffle the order of elements in a tensor-------------
+Utile per far in modo che l'AI sia addestrata in maniera equa.
+Se ad esempio dovessi allenarla per riconoscere la differenza tra ramen e spaghetti e 
+le prima 10.000 immagini fossero tutte di ramen avrei un problema perchè l'AI all'inizio 
+calibrerebbe il tensore per ricnoscere solo il ramen.
+Eseguire uno shuffle quindi ci permetterebbe di allenare l'AI su entrambi i tipi di Ramen in
+contemporanea.
+
+Ovviamente se gli do un seed fisso la randomizzazione sarà sempre uguale come nel caso di shuffle_2

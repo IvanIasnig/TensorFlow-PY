@@ -47,3 +47,14 @@ random_2 = tf.random.Generator.from_seed(42)
 random_2 = random_2.uniform(shape=(3,2))
 print(random_2) #nel video mi mostrava che se creavo random_2 uguale a raondom_1 erano uguali, il che è ovvio dato che hanno lo stesso seed, per provare al secondo gli ho dato una distribuzione normale (gaussiana), in modo da vedere cosa cosa mi veniva fuori
 """
+#Shuffle the order of elements in a tensor
+
+not_shuffled = tf.constant([[10,7],
+                           [3,4],
+                           [2,5]])
+
+shuffled = tf.random.shuffle(not_shuffled)
+print(shuffled)
+
+shuffled2 = tf.random.shuffle(not_shuffled, seed=42)
+print(shuffled2)
