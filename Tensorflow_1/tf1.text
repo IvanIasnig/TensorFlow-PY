@@ -9,7 +9,9 @@ In sintesi, questo output indica che TensorFlow si sta inizializzando correttame
 NUMA (Non-Uniform Memory Access) è un'architettura di memoria utilizzata nei sistemi multiprocessore per consentire a ciascun processore di accedere direttamente alla propria memoria locale e alla memoria di altri processori in modo più efficiente. In un sistema NUMA, i nodi rappresentano unità di elaborazione (processori o gruppi di processori) e le loro memorie locali associate.
 Nel contesto delle GPU, un nodo NUMA si riferisce alla memoria associata a una specifica GPU e al processore a cui è connessa. Identificare correttamente il nodo NUMA della GPU può essere utile per ottimizzare l'allocazione della memoria e la comunicazione tra la GPU e la CPU, migliorando le prestazioni delle applicazioni che utilizzano entrambe le risorse.
 Nel log che hai condiviso, TensorFlow non è stato in grado di identificare il nodo NUMA associato alla tua GPU e ha utilizzato il valore predefinito 0. Sebbene questo possa non essere ottimale per le prestazioni, non dovrebbe causare malfunzionamenti o errori nel funzionamento del tuo programma. In alcuni casi, la mancata identificazione del nodo NUMA può essere dovuta al fatto che il kernel del sistema operativo non è stato compilato con il supporto NUMA abilitato.
+
 -----------------------------------------------------------------------
+
 Creazione di diversi tipi di tensori:
 Il codice inizia importando il modulo tensorflow e creando diversi tipi di tensori:
 - `scalar` è uno scalare, ovvero un singolo numero;
@@ -46,6 +48,7 @@ Il codice crea due tensori con valori casuali utilizzando TensorFlow e il modulo
 Sebbene entrambi i tensori utilizzino lo stesso seed, la generazione dei numeri casuali è diversa poiché `random_1` utilizza una distribuzione normale, mentre `random_2` utilizza una distribuzione uniforme. Pertanto, i valori all'interno di questi due tensori saranno diversi.
 
 ----------------------Shuffle the order of elements in a tensor-------------
+
 Utile per far in modo che l'AI sia addestrata in maniera equa.
 Se ad esempio dovessi allenarla per riconoscere la differenza tra ramen e spaghetti e 
 le prima 10.000 immagini fossero tutte di ramen avrei un problema perchè l'AI all'inizio 
@@ -54,3 +57,77 @@ Eseguire uno shuffle quindi ci permetterebbe di allenare l'AI su entrambi i tipi
 contemporanea.
 
 Ovviamente se gli do un seed fisso la randomizzazione sarà sempre uguale come nel caso di shuffle_2
+
+L'utilizzo di un seed globale è utile quando si vuole ottenere una riproducibilità dei risultati in diverse parti del codice, ad esempio quando si esegue un'operazione di addestramento di una rete neurale in più riprese. D'altra parte, l'utilizzo di un seed locale può essere utile quando si vuole controllare il comportamento di una singola operazione senza influenzare il resto del codice.
+Se non è impostato né il seed globale né il seed dell'operazione: per questa operazione viene utilizzato un seed scelto casualmente.
+Se il seed globale è impostato, ma il seed dell'operazione non lo è: il sistema seleziona deterministicamente un seed dell'operazione insieme al seed globale in modo da ottenere una sequenza casuale univoca. All'interno della stessa versione di tensorflow e del codice utente, questa sequenza è deterministica. Tuttavia, nelle diverse versioni, questa sequenza potrebbe cambiare. Se il codice dipende da particolari seed per funzionare, specificare in modo esplicito sia i seed globali che quelli a livello di operazione.
+Se il seed dell'operazione è impostato, ma il seed globale non lo è: per determinare la sequenza casuale vengono utilizzati un seed globale predefinito e il seed dell'operazione specificato.
+Se sono impostati sia il seed globale che quello dell'operazione: entrambi i semi vengono utilizzati insieme per determinare la sequenza casuale.
+
+-----------------------Creating Array with numpy arrays------------------------
+
+La differenza principale tra i tensor di Tensorflow e gli array di Numpy è che
+i tensori hanno una meaggior velocità se esguiti tramite la GPU.
+
+Tutto ciò che è scritto in numpy può essere riscritto con Tf.
+Generalmente con numpy si mettonbo le variabili in minuscolo mentre con tensorflow in maiuscolo
+
+Il codice crea tre tensori utilizzando TensorFlow e un array NumPy.
+
+1. `x`: un tensore di dimensione 10x7, contenente solo valori 1.
+2. `y`: un tensore di dimensione 4x3, contenente solo valori 0.
+3. `numpy_A`: un array NumPy contenente numeri interi che vanno da 1 a 24 (estremi inclusi).
+4. `A`: un tensore costante creato a partire dall'array `numpy_A`.
+5. `B`: un tensore costante creato a partire dall'array `numpy_A` con una forma specifica (2x3x4).
+6. `C`: un tensore costante con gli stessi valori del B m,a a cui è stata rimodellata la forma. (8x3 fa sempre 24, avrei potuto dargli anche  2x2x2x3 ad esempio)
+
+OUTPUT A
+tf.Tensor([ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24], shape=(24,), dtype=int32)
+
+OUTPUT B
+tf.Tensor(
+[[[ 1  2  3  4]
+  [ 5  6  7  8]
+  [ 9 10 11 12]]
+
+ [[13 14 15 16]
+  [17 18 19 20]
+  [21 22 23 24]]], shape=(2, 3, 4), dtype=int32)
+OUTPUT C
+tf.Tensor(
+[[ 1  2  3]
+ [ 4  5  6]
+ [ 7  8  9]
+ [10 11 12]
+ [13 14 15]
+ [16 17 18]
+ [19 20 21]
+ [22 23 24]], shape=(8, 3), dtype=int32)
+
+ --------------------Tensor attributes-------------------------------
+
+Il codice crea un tensore di rango 4 e ne mostra alcune proprietà. Spiegherò ogni riga del codice:
+
+1. `rank_4_tensor = tf.zeros(shape=[2,3,4,5])`: Crea un tensore di rango 4 con tutti gli elementi impostati a 0. La forma del tensore è [2, 3, 4, 5], che rappresenta 2 matrici, ognuna contenente 3 matrici di dimensione 4x5.
+2. `print(rank_4_tensor)`: Stampa il tensore completo, mostrando la sua forma e i valori contenuti in esso.
+3. `print(rank_4_tensor[0])`: Stampa solo la prima delle due matrici esterne (indice 0).
+4. `print(rank_4_tensor[1][1][3][2])`: Accede a un singolo elemento del tensore usando gli indici [1, 1, 3, 2] e lo stampa. Poiché il tensore è inizializzato con tutti gli elementi impostati a 0, il risultato sarà 0.
+5. `print(rank_4_tensor.shape, rank_4_tensor.ndim, tf.size(rank_4_tensor))`: Stampa la forma, il rango e la dimensione del tensore. La forma è [2, 3, 4, 5], il rango è 4 (poiché ha 4 dimensioni), e la dimensione è il prodotto delle lunghezze delle dimensioni (ovvero 2 * 3 * 4 * 5 = 120), che rappresenta il numero totale di elementi nel tensore.
+6. `print(rank_4_tensor.shape[-1])` rappresenta la forma dell'elemento -1
+Il numero di dimensio in parole provere indica il numero di numeri da cui è composta la shape. es: shape=(7,8,9,6) abrà ndim = 4.
+
+--------------------indexing and expanding tensors-------------------
+
+Il codice crea un tensore di rango 4, esegue alcune operazioni di slicing e manipolazione delle dimensioni, e ne mostra i risultati. Ecco un riassunto delle operazioni:
+
+1. Crea un tensore di rango 4 `rank_4_tensor` di forma [2, 3, 4, 5], con tutti gli elementi impostati a 0.
+2. Crea un nuovo tensore `x` estraendo gli elementi da `rank_4_tensor` utilizzando slicing; `x` ha forma [2, 2, 2, 2].
+3. Crea un nuovo tensore `y` estraendo gli elementi da `rank_4_tensor` utilizzando slicing; `y` ha forma [1, 1, 4, 5].
+4. Crea un nuovo tensore `z` estraendo gli elementi da `rank_4_tensor` utilizzando slicing; `z` ha forma [1, 1, 4, 1].
+5. Crea un tensore di rango 2 `rank_2_tensor` di forma [2, 2].
+6. Crea un nuovo tensore `za` estraendo l'ultima colonna di `rank_2_tensor` utilizzando slicing; `za` ha forma [2].
+7. Espande le dimensioni di `rank_2_tensor` utilizzando `tf.newaxis`, creando `rank_2_tensor_expanded` di forma [2, 2, 1].
+8. Espande le dimensioni di `rank_2_tensor` utilizzando `tf.expand_dims`, creando `other_rank_2_tensor_expanded` di forma [2, 2, 1].
+
+NB: ESAPANDERE LE DIMENSIONI NON VUOL DIRE AGGIUNGERE MATRICI, MA VUOL DIRE AGGIUNGERE 
+DIMENSIONI AGLI ALEMENTI ESISTENTI, QUIDI ANDARLI A SCOMPATTARE IN SOTTOMATRICI.
