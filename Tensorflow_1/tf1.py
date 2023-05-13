@@ -133,7 +133,7 @@ print(y) #ovviamente per la dot notation valgono le stesse regole di numpy
 
 tensor_3 = tf.reshape(tensor_2, shape=(2,3))
 trasposta_tensor_3 = tf.transpose(tensor_3) 
-print(tensor_3, trasposta_tensor_) 
+print(tensor_3, trasposta_tensor_3) 
 
 z= tf.matmul(tensor_2, tensor_3)
 # za = tf.matmul(tensor_2, trasposta_tensor_3) ovviamente la dot notation in questo caso non funziona perchè usando la trasposta il numero di colonne e di righe va a cambiare (se avessi avuto una matrice quadrata avrebbe funzionato ma tra il reshape e la trasposta avrei semplicemente avuto i numeri in una disposizione diversa all'interno della matrice)
