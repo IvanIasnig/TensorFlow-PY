@@ -207,7 +207,7 @@ Il codice fa quanto segue:
 1. Crea un tensore `D` con due valori interi (-7 e -10).
 2. Calcola il valore assoluto di ogni elemento nel tensore `D` utilizzando `tf.abs()` e assegna il risultato a `D_abs`.
 3. Stampa il tensore `D_abs` che contiene i valori assoluti degli elementi in `D`.
-4. Crea un tensore di numeri interi casuali (`tensor_random`) con una forma di (2, 3, 3) e valori compresi tra 0 e 10 (incluso 0, escluso 10), utilizzando un seed di 42 per la generazione di numeri casuali.
+4. Crea un tensore di numeri casuali (`tensor_random`) con una forma di (2, 3, 3) e valori compresi tra 0 e 10 (incluso 0, escluso 10), utilizzando un seed di 42 per la generazione di numeri casuali.
 5. Stampa il tensore `tensor_random`.
 6. Calcola e stampa il valore minimo nel tensore `tensor_random` usando `tf.reduce_min()`.
 7. Calcola e stampa il valore massimo nel tensore `tensor_random` usando `tf.reduce_max()`.
@@ -217,3 +217,34 @@ Il codice fa quanto segue:
 11. Calcola la deviazione standard degli elementi nel tensore `tensor_random` utilizzando `tf.math.reduce_std`, (non nel mio caso ma potrebbe servire castare il tensore su qui stiamo calcolando la sd). In ogni caso avrei potuto anche fare la stessa operazione andando a usare sqrt sulla varianza.
 12. Calcola la varianza nel sensore tensor_random usando  `tfp.stats.variance` che calcola la varianza lungo l'ultimo asse del tensore per default. In altre parole, calcola la varianza per ogni "gruppo" di valori lungo l'ultimo asse, restituendo un array di varianze invece di un singolo valore.
 (volendo avrei potuto anche calcolare la sd con l'ultimo metodo semplicemente facendo un reshape del tensore)
+
+--------Finding the positional minimum and maximum of a tensor (argmin e argmax)---------------
+
+1. Crea un tensore `F` con 50 valori casuali generati uniformemente. La forma del tensore è [50].
+2. Trova l'indice del valore massimo nel tensore `F` utilizzando la funzione `tf.argmax()` e assegna il risultato a `F_max`.
+3. Trova l'indice del valore minimo nel tensore `F` utilizzando la funzione `tf.argmin()` e assegna il risultato a `F_min`.
+4. Stampa gli indici del valore massimo e minimo nel tensore `F` (rispettivamente `F_max` e `F_min`).
+
+------------------------------Sqeezing a tensor (removing all single dimensions)---------------
+
+Il codice fa quanto segue:
+
+1. Crea un tensore `G` con 50 valori casuali generati uniformemente. Inoltre, il tensore viene ridimensionato con una forma di (1, 1, 1, 1, 50) aggiungendo dimensioni singoleton (di lunghezza 1) lungo i primi quattro assi.
+2. Stampa il tensore `G`.
+
+3. Utilizza la funzione `tf.squeeze()` per rimuovere tutte le dimensioni singoleton (di lunghezza 1) dal tensore `G` e assegna il risultato a `G_squeezed`.
+4. Stampa il tensore `G_squeezed`.
+
+In sintesi, il codice crea un tensore con valori casuali e una forma specifica (1, 1, 1, 1, 50), poi rimuove tutte le dimensioni inutili (le dimensioni singoleton) utilizzando `tf.squeeze()` e stampa il tensore risultante.
+
+-------------------------------One-hot encoding--------------------------------------------
+
+Il codice fa quanto segue:
+
+1. Crea una lista di etichette categoriche (in questo caso, classi di numeri interi) chiamata `list`, che contiene 4 elementi: 0, 1, 2 e 3.
+2. Definisce il numero di classi uniche come `num_classes` (in questo caso, ci sono 4 classi: 0, 1, 2 e 3).
+3. Esegue l'one-hot encoding delle etichette presenti nella lista `list` utilizzando la funzione `tf.one_hot()`. Il parametro `depth` è impostato sul numero di classi (`num_classes`), che in questo caso è 4. Il risultato viene assegnato a `one_hot_encoded`.
+4. Stampa il tensore `one_hot_encoded`, che contiene i vettori one-hot corrispondenti a ciascuna etichetta nella lista `list`.
+
+In sintesi, il codice converte una lista di etichette categoriche (0, 1, 2, 3) in vettori one-hot encoded utilizzando la funzione `tf.one_hot()` e stampa il risultato.
+(in ogni caso oltre a 0 1 gli posso dare io un on value e un off value)

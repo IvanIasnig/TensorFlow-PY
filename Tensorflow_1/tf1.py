@@ -157,7 +157,7 @@ C_cast = tf.cast(C, dtype = tf.float64)
 print(C_cast.dtype) #<dtype: 'float64'>
 """
 #tensor aggregations
-
+"""
 D = tf.constant([-7,-10])
 D_abs = tf.abs(D)
 print(D_abs)
@@ -176,8 +176,41 @@ tensor_random_stddev =tf.math.reduce_std(tensor_random)
 print(tensor_random_min,tensor_random_max,tensor_random_mean,tensor_random_sum,tensor_random_variance, tensor_random_stddev)
 
 import tensorflow_probability as tfp
+
 #tensor_random_flat = tf.reshape(tensor_random, [-1])
 #tensor_random_variance_p =tfp.stats.variance(tensor_random_flat) in questo modo avrei una singola varianza
+
 tensor_random_variance_p =tfp.stats.variance(tensor_random)
 print(tensor_random_variance_p)
+"""
+#Finding the positional minimum and maximum of a tensor (argmin e argmax)
+""""
+F = tf.random.uniform(shape=[50])
+
+F_max = tf.argmax(F)
+F_min = tf.argmin(F)
+print(F_max, F_min)
+"""
+#Sqeezing a tensor (removing all single dimensions)
+"""
+G = tf.constant(tf.random.uniform(shape=[50]),shape=(1,1,1,1,50))
+print(G)
+
+G_squeezed= tf.squeeze(G)
+print(G_squeezed) #praticamente levo tutte le quadre inutili
+"""
+#One-hot encoding
+
+# Etichette categoriche (ad esempio, classi di numeri interi)
+list = [0, 1, 2, 3]
+
+# Numero di classi (in questo caso, abbiamo 4 classi: 0, 1, 2, 3)
+num_classes = 4
+
+# Esegui l'one-hot encoding delle etichette
+one_hot_encoded = tf.one_hot(list, depth=num_classes)
+
+print(one_hot_encoded)
+
+
 
