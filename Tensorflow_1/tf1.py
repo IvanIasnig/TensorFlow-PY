@@ -171,6 +171,13 @@ tensor_random_max =tf.reduce_max(tensor_random)
 tensor_random_mean =tf.reduce_mean(tensor_random)
 tensor_random_sum =tf.reduce_sum(tensor_random)
 tensor_random_variance =tf.math.reduce_variance(tensor_random)
-tensor_random_stddev =tf.math.sqrt(tensor_random_variance)
+tensor_random_stddev =tf.math.reduce_std(tensor_random)
 
 print(tensor_random_min,tensor_random_max,tensor_random_mean,tensor_random_sum,tensor_random_variance, tensor_random_stddev)
+
+import tensorflow_probability as tfp
+#tensor_random_flat = tf.reshape(tensor_random, [-1])
+#tensor_random_variance_p =tfp.stats.variance(tensor_random_flat) in questo modo avrei una singola varianza
+tensor_random_variance_p =tfp.stats.variance(tensor_random)
+print(tensor_random_variance_p)
+

@@ -214,6 +214,6 @@ Il codice fa quanto segue:
 8. Calcola e stampa il valore medio nel tensore `tensor_random` usando `tf.reduce_mean()`.
 9. Calcola e stampa la somma degli elementi nel tensore `tensor_random` usando `tf.reduce_sum()`.
 10. Calcola la varianza degli elementi nel tensore `tensor_random` usando `tf.math.reduce_variance()` e assegna il risultato a `tensor_random_variance`.
-11. Calcola la deviazione standard degli elementi nel tensore `tensor_random` utilizzando `tf.math.sqrt()` in combinazione con la varianza calcolata in precedenza (`tensor_random_variance`) e assegna il risultato a `tensor_random_stddev`.
-
-
+11. Calcola la deviazione standard degli elementi nel tensore `tensor_random` utilizzando `tf.math.reduce_std`, (non nel mio caso ma potrebbe servire castare il tensore su qui stiamo calcolando la sd). In ogni caso avrei potuto anche fare la stessa operazione andando a usare sqrt sulla varianza.
+12. Calcola la varianza nel sensore tensor_random usando  `tfp.stats.variance` che calcola la varianza lungo l'ultimo asse del tensore per default. In altre parole, calcola la varianza per ogni "gruppo" di valori lungo l'ultimo asse, restituendo un array di varianze invece di un singolo valore.
+(volendo avrei potuto anche calcolare la sd con l'ultimo metodo semplicemente facendo un reshape del tensore)
