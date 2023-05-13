@@ -106,3 +106,38 @@ print(rank_2_tensor_expanded)
 other_rank_2_tensor_expanded = tf.expand_dims(rank_2_tensor, axis = -1)
 print(other_rank_2_tensor_expanded)
 """
+#manipulating Tensor with basic algebra
+"""
+tensor = tf.constant([[10,7],[3,4]])
+
+print(tensor + 10)
+print(tensor * 100)
+print(tensor - 10)
+print(tf.multiply(tensor,10)) #meglio usare i mnetodi di tensorflow per incrementare le performance
+"""
+#matrix manipulation with tensor 
+
+tensor = tf.constant([[10,7],[3,4]])
+
+x= tf.matmul(tensor, tensor)
+print(x) #dot notation con se stessa 
+
+tensor_1 = tf.constant([[1,2,5],
+                        [7,2,1],
+                        [3,3,3]])
+tensor_2 = tf.constant([[3,5],
+                        [6,7],
+                        [1,8]])
+y = tf.matmul(tensor_1, tensor_2) #potevo anche riscvriverlo come tensor_1 @ tensor_2
+print(y) #ovviamente per la dot notation valgono le stesse regole di numpy
+
+tensor_3 = tf.reshape(tensor_2, shape=(2,3))
+trasposta_tensor_3 = tf.transpose(tensor_3) 
+print(tensor_3, trasposta_tensor_) 
+
+z= tf.matmul(tensor_2, tensor_3)
+# za = tf.matmul(tensor_2, trasposta_tensor_3) ovviamente la dot notation in questo caso non funziona perchè usando la trasposta il numero di colonne e di righe va a cambiare (se avessi avuto una matrice quadrata avrebbe funzionato ma tra il reshape e la trasposta avrei semplicemente avuto i numeri in una disposizione diversa all'interno della matrice)
+print(z) 
+
+za= tf.tensordot(tensor_2, tensor_3, axes= 2)
+print(za)

@@ -131,3 +131,31 @@ Il codice crea un tensore di rango 4, esegue alcune operazioni di slicing e mani
 
 NB: ESAPANDERE LE DIMENSIONI NON VUOL DIRE AGGIUNGERE MATRICI, MA VUOL DIRE AGGIUNGERE 
 DIMENSIONI AGLI ALEMENTI ESISTENTI, QUIDI ANDARLI A SCOMPATTARE IN SOTTOMATRICI.
+
+------------------manipulating tensors with basic algebra--------------
+
+1. La riga `tensor = tf.constant([[10,7],[3,4]])` crea un tensore costante con valori [[10,7],[3,4]] e lo assegna alla variabile `tensor`.
+2. La riga `print(tensor + 10)` esegue un'operazione di addizione tra il tensore `tensor` e il valore scalare 10. Il risultato è un nuovo tensore in cui a ciascun elemento del tensore originale viene sommato 10. Viene stampato il risultato.
+3. La riga `print(tensor * 100)` esegue un'operazione di moltiplicazione tra il tensore `tensor` e il valore scalare 100. Il risultato è un nuovo tensore in cui ciascun elemento del tensore originale viene moltiplicato per 100. Viene stampato il risultato.
+4. La riga `print(tensor - 10)` esegue un'operazione di sottrazione tra il tensore `tensor` e il valore scalare 10. Il risultato è un nuovo tensore in cui a ciascun elemento del tensore originale viene sottratto 10. Viene stampato il risultato.
+5. La riga `print(tf.multiply(tensor,10))` esegue un'operazione di moltiplicazione tra il tensore `tensor` e il valore scalare 10 utilizzando la funzione `tf.multiply()`. Il risultato è un nuovo tensore in cui ciascun elemento del tensore originale viene moltiplicato per 10. Viene stampato il risultato.
+
+------------------matrix manipulation with tensor -------------------------
+
+1. La riga `tensor = tf.constant([[10,7],[3,4]])` crea un tensore costante di dimensione 2x2 con i valori specificati e lo assegna alla variabile `tensor`.
+2. La riga `x = tf.matmul(tensor, tensor)` esegue una moltiplicazione di matrici tra il tensore `tensor` e se stesso utilizzando la funzione `tf.matmul()`. Il risultato è un nuovo tensore che rappresenta il prodotto di matrici. Viene assegnato alla variabile `x`.
+3. La riga `print(x)` stampa il valore del tensore `x`, che è il risultato della moltiplicazione di matrici.
+4. Le righe seguenti definiscono due nuovi tensori costanti: `tensor_1` e `tensor_2`.
+5. La riga `y = tf.matmul(tensor_1, tensor_2)` esegue una moltiplicazione di matrici tra `tensor_1` e `tensor_2` utilizzando la funzione `tf.matmul()`. Il risultato è un nuovo tensore che rappresenta il prodotto di matrici. Viene assegnato alla variabile `y`.
+6. La riga `print(y)` stampa il valore del tensore `y`, che è il risultato della moltiplicazione di matrici.
+
+È importante notare che la libreria TensorFlow supporta la notazione `@` per la moltiplicazione di matrici, quindi l'istruzione `y = tf.matmul(tensor_1, tensor_2)` può essere scritta anche come `y = tensor_1 @ tensor_2`.
+Infine, come ho menzionato, per la moltiplicazione di matrici e la notazione puntata (dot notation), valgono le stesse regole di NumPy(che sono le stesse regole del prodotto tra matrici in generale). 
+
+7. La riga `tensor_3 = tf.reshape(tensor_2, shape=(2,3))` ridimensiona il tensore `tensor_2` in una nuova forma 2x3 e lo assegna alla variabile `tensor_3`.
+8. La riga `trasposta_tensor_3 = tf.transpose(tensor_3)` calcola la trasposta del tensore `tensor_3` e la assegna alla variabile `trasposta_tensor_3`.
+9. La riga `print(tensor_3, trasposta_tensor_3)` stampa il valore dei tensori `tensor_3` e `trasposta_tensor_3`.
+10. La riga `z = tf.matmul(tensor_2, tensor_3)` esegue una moltiplicazione di matrici tra `tensor_2` e `tensor_3` utilizzando la funzione `tf.matmul()`. Il risultato è un nuovo tensore che rappresenta il prodotto di matrici. Viene assegnato alla variabile `z`.
+11. La riga `print(z)` stampa il valore del tensore `z`, che è il risultato della moltiplicazione di matrici.
+12. La riga `za= tf.tensordot(tensor_2, tensor_3, axes= 2)` esegue un'operazione di tensordot tra `tensor_2` e `tensor_1` con una contrazione lungo 2 assi. Il risultato è un singolo scalare che viene assegnato alla variabile `za`.
+13. La riga `print(za)` stampa il valore del tensore `za`, che è il risultato dell'operazione tensordot.
