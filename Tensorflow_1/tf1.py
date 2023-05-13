@@ -158,3 +158,19 @@ print(C_cast.dtype) #<dtype: 'float64'>
 """
 #tensor aggregations
 
+D = tf.constant([-7,-10])
+D_abs = tf.abs(D)
+print(D_abs)
+
+
+tensor_random = tf.random.uniform(shape=(2,3,3), minval=0, maxval=10,seed = 42)
+print(tensor_random)
+
+tensor_random_min =tf.reduce_min(tensor_random)
+tensor_random_max =tf.reduce_max(tensor_random)
+tensor_random_mean =tf.reduce_mean(tensor_random)
+tensor_random_sum =tf.reduce_sum(tensor_random)
+tensor_random_variance =tf.math.reduce_variance(tensor_random)
+tensor_random_stddev =tf.math.sqrt(tensor_random_variance)
+
+print(tensor_random_min,tensor_random_max,tensor_random_mean,tensor_random_sum,tensor_random_variance, tensor_random_stddev)

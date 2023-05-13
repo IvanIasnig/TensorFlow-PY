@@ -199,3 +199,21 @@ Successivamente, si utilizza la funzione `tf.cast()` per convertire i tensori B 
 3. B_cast è il risultato della conversione di B in un tensore di tipo float16.
 4. C_cast è il risultato della conversione di C in un tensore di tipo float64.
 Infine, il codice stampa i dtype di B, C, B_cast e C_cast, mostrando che B è di tipo float32, C è di tipo int32, B_cast è di tipo float16 e C_cast è di tipo float64.
+
+------------------------------------tensor aggregations--------------------------------
+
+Il codice fa quanto segue:
+
+1. Crea un tensore `D` con due valori interi (-7 e -10).
+2. Calcola il valore assoluto di ogni elemento nel tensore `D` utilizzando `tf.abs()` e assegna il risultato a `D_abs`.
+3. Stampa il tensore `D_abs` che contiene i valori assoluti degli elementi in `D`.
+4. Crea un tensore di numeri interi casuali (`tensor_random`) con una forma di (2, 3, 3) e valori compresi tra 0 e 10 (incluso 0, escluso 10), utilizzando un seed di 42 per la generazione di numeri casuali.
+5. Stampa il tensore `tensor_random`.
+6. Calcola e stampa il valore minimo nel tensore `tensor_random` usando `tf.reduce_min()`.
+7. Calcola e stampa il valore massimo nel tensore `tensor_random` usando `tf.reduce_max()`.
+8. Calcola e stampa il valore medio nel tensore `tensor_random` usando `tf.reduce_mean()`.
+9. Calcola e stampa la somma degli elementi nel tensore `tensor_random` usando `tf.reduce_sum()`.
+10. Calcola la varianza degli elementi nel tensore `tensor_random` usando `tf.math.reduce_variance()` e assegna il risultato a `tensor_random_variance`.
+11. Calcola la deviazione standard degli elementi nel tensore `tensor_random` utilizzando `tf.math.sqrt()` in combinazione con la varianza calcolata in precedenza (`tensor_random_variance`) e assegna il risultato a `tensor_random_stddev`.
+
+
