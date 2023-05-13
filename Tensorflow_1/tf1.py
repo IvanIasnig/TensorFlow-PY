@@ -116,7 +116,7 @@ print(tensor - 10)
 print(tf.multiply(tensor,10)) #meglio usare i mnetodi di tensorflow per incrementare le performance
 """
 #matrix manipulation with tensor 
-
+"""
 tensor = tf.constant([[10,7],[3,4]])
 
 x= tf.matmul(tensor, tensor)
@@ -141,3 +141,20 @@ print(z)
 
 za= tf.tensordot(tensor_2, tensor_3, axes= 2)
 print(za)
+"""
+#changing the datatype of tensors
+"""
+B = tf.constant([1.7,7.4])
+print(B.dtype) # <dtype: 'float32'>
+
+C = tf.constant([7,10])
+print(C.dtype) # <dtype: 'int32'>
+
+B_cast = tf.cast(B, dtype = tf.float16)
+print(B_cast.dtype) #<dtype: 'float16'>
+
+C_cast = tf.cast(C, dtype = tf.float64)
+print(C_cast.dtype) #<dtype: 'float64'>
+"""
+#tensor aggregations
+

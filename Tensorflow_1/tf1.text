@@ -159,3 +159,43 @@ Infine, come ho menzionato, per la moltiplicazione di matrici e la notazione pun
 11. La riga `print(z)` stampa il valore del tensore `z`, che è il risultato della moltiplicazione di matrici.
 12. La riga `za= tf.tensordot(tensor_2, tensor_3, axes= 2)` esegue un'operazione di tensordot tra `tensor_2` e `tensor_1` con una contrazione lungo 2 assi. Il risultato è un singolo scalare che viene assegnato alla variabile `za`.
 13. La riga `print(za)` stampa il valore del tensore `za`, che è il risultato dell'operazione tensordot.
+
+------------------------changing the datatype of tensors----------------------------
+
+In Tensorflow, il termine "dtype" si riferisce al "data type" (tipo di dato) utilizzato per rappresentare i numeri all'interno dei tensori. I dtype più comuni in Tensorflow sono "float" (per numeri in virgola mobile) e "int" (per numeri interi), e possono avere diverse lunghezze, come 16, 32 o 64 bit. La scelta del dtype ha un impatto sulle prestazioni e sulla precisione dei calcoli.
+
+1. 16 bit: 
+- float16 (o "half precision"): questo tipo di dato utilizza 16 bit per rappresentare un numero in virgola mobile. Ha una gamma e una precisione limitate rispetto ai dtype a 32 o 64 bit. Tuttavia, poiché utilizza meno memoria e richiede meno larghezza di banda, può offrire un aumento delle prestazioni in alcuni modelli, specialmente su hardware specifico che supporta operazioni a 16 bit, come le GPU NVIDIA con supporto Tensor Core.
+- int16: simile al float16, questo tipo di dato utilizza 16 bit per rappresentare numeri interi. Ha una gamma limitata rispetto agli interi a 32 o 64 bit, ma occupa meno memoria.
+
+2. 32 bit:
+- float32 (o "single precision"): questo tipo di dato utilizza 32 bit per rappresentare un numero in virgola mobile. È il dtype più comune utilizzato in Tensorflow e offre un buon equilibrio tra precisione e consumo di memoria.
+- int32: questo tipo di dato utilizza 32 bit per rappresentare numeri interi. È molto più comune di int16 e offre una gamma di valori molto più ampia.
+
+3. 64 bit:
+- float64 (o "double precision"): questo tipo di dato utilizza 64 bit per rappresentare un numero in virgola mobile. Offre una precisione molto elevata, ma a scapito di un maggiore consumo di memoria e potenzialmente prestazioni inferiori rispetto a float32.
+- int64: questo tipo di dato utilizza 64 bit per rappresentare numeri interi e offre una gamma di valori enorme. In genere, non è necessario utilizzare int64 per la maggior parte delle applicazioni di deep learning, a meno che non sia richiesta una gamma di valori estremamente ampia.
+
+In sintesi, la scelta del dtype dipende dalle esigenze di precisione e dalle risorse hardware disponibili. Nella maggior parte dei casi, si consiglia di utilizzare float32 per i numeri in virgola mobile e int32 per i numeri interi. Tuttavia, in alcune situazioni, potrebbe essere utile utilizzare dtype a 16 o 64 bit per migliorare le prestazioni o la precisione.
+
+
+La "gamma di valori" si riferisce all'intervallo di numeri che un tipo di dato può rappresentare. Ogni tipo di dato ha una capacità diversa di rappresentare numeri in base al numero di bit utilizzati per codificarli. Maggiore è il numero di bit, maggiore è la gamma di valori che il tipo di dato può rappresentare.
+Per esempio, consideriamo i tipi di dati interi (int):
+
+1. int16: con 16 bit, si possono rappresentare 2^16 valori distinti, che vanno da -32.768 a 32.767 (inclusi sia il numero positivo che quello negativo, poiché il primo bit è utilizzato per il segno).
+2. int32: con 32 bit, si possono rappresentare 2^32 valori distinti, che vanno da -2.147.483.648 a 2.147.483.647.
+3. int64: con 64 bit, si possono rappresentare 2^64 valori distinti, che vanno da -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807.
+
+Per i numeri in virgola mobile (float), la gamma di valori è determinata dalla distribuzione dei bit tra l'esponente e la mantissa (cioè la parte intera e quella frazionaria del numero). Ad esempio:
+1. float16: conosciuto anche come "half precision", utilizza 1 bit per il segno, 5 bit per l'esponente e 10 bit per la mantissa. Ha una gamma di valori più limitata e una precisione inferiore rispetto a float32 e float64.
+2. float32: conosciuto anche come "single precision", utilizza 1 bit per il segno, 8 bit per l'esponente e 23 bit per la mantissa. Ha una gamma di valori e una precisione intermedia tra float16 e float64.
+3. float64: conosciuto anche come "double precision", utilizza 1 bit per il segno, 11 bit per l'esponente e 52 bit per la mantissa. Ha la gamma di valori e la precisione più ampie tra questi tre tipi di dati in virgola mobile.
+In generale, la gamma di valori di un tipo di dato è importante perché determina quale intervallo di numeri può essere rappresentato e gestito in modo accurato dall'algoritmo. Se si lavora con numeri al di fuori della gamma di valori di un tipo di dato, si possono verificare errori di approssimazione, overflow o underflow, che possono influire sulla precisione e sulle prestazioni dell'algoritmo.
+
+In questo frammento di codice, vengono create due costanti Tensorflow (B e C) e successivamente vengono convertite (cast) in tipi di dati diversi (B_cast e C_cast). 
+1. B è un tensore di tipo float32 con due numeri in virgola mobile (1.7 e 7.4).
+2. C è un tensore di tipo int32 con due numeri interi (7 e 10).
+Successivamente, si utilizza la funzione `tf.cast()` per convertire i tensori B e C in tipi di dati diversi:
+3. B_cast è il risultato della conversione di B in un tensore di tipo float16.
+4. C_cast è il risultato della conversione di C in un tensore di tipo float64.
+Infine, il codice stampa i dtype di B, C, B_cast e C_cast, mostrando che B è di tipo float32, C è di tipo int32, B_cast è di tipo float16 e C_cast è di tipo float64.
