@@ -295,9 +295,10 @@ print(za)
 """
 
 #IMAGE TO ARRAY
+
 """
 from matplotlib.image import imread
 
-serpente = imread("Java_PY.png")
+serpente = imread("TSF.png")
 print(serpente.size, serpente.shape, serpente.ndim)
 """

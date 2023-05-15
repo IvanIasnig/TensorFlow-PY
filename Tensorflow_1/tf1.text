@@ -248,3 +248,40 @@ Il codice fa quanto segue:
 
 In sintesi, il codice converte una lista di etichette categoriche (0, 1, 2, 3) in vettori one-hot encoded utilizzando la funzione `tf.one_hot()` e stampa il risultato.
 (in ogni caso oltre a 0 1 gli posso dare io un on value e un off value)
+
+--------------------------------More math operations--------------------------------------
+
+Il codice esegue le seguenti operazioni:
+
+1. Crea un tensore `H` contenente una sequenza di valori interi da 1 a 9 utilizzando `tf.range(1, 10)`.
+2. Calcola il quadrato di ogni elemento nel tensore `H` utilizzando `tf.square(H)` e lo assegna a `H_square`.
+3. Converte il tipo di dati degli elementi nel tensore `H_square` in interi a 16 bit (`tf.int16`) utilizzando `tf.cast(H_square, dtype=tf.int16)` e lo assegna a `H_square_cast`.
+4. Converte il tipo di dati degli elementi nel tensore `H` in numeri a virgola mobile a 32 bit (`tf.float32`) utilizzando `tf.cast(H, dtype=tf.float32)`.
+5. Calcola il logaritmo naturale di ogni elemento nel tensore convertito e lo assegna a `H_log` utilizzando `tf.math.log()`.
+
+------------------------------TF with NP------------------------------------------------
+
+Il codice esegue le seguenti operazioni:
+
+1. Crea un tensore `J` utilizzando un array NumPy di numeri in virgola mobile a 64 bit (dtype `float64`) con i valori `[3., 7., 10.]`.
+2. Converte il tensore `J` in un array NumPy `J_n` utilizzando `np.array(J)`.
+3. Stampa i tipi di dati (dtype) di `J` e `J_n` per mostrare che entrambi hanno lo stesso dtype (`float64`).
+4. Crea un tensore `K` utilizzando una lista di numeri in virgola mobile con i valori `[3., 7., 10.]`. TensorFlow userà il dtype predefinito per numeri a virgola mobile, che è `float32`.
+5. Stampa il tipo di dato (dtype) di `K`, mostrando che ha un dtype `float32`.
+
+In sintesi, questo esempio dimostra che il dtype predefinito per numeri a virgola mobile in NumPy è `float64`, mentre il dtype predefinito in TensorFlow è `float32`.
+
+--------------------------------------TF vs NUMPY--------------------------------------
+
+Nel codice vediamo la differenza di esecuzione tra numpy e tf, usando pip install tensorflow-directml-plugin per usare la
+GPU abbiamo 0.3 second per FT contro 15.5 per numpy. Disinstallandolo abbiamo 15 per numpy e 9 per TF.
+Tf batte Np anche su CPU perchè è ottimizzato per il machine learning quindi per sto tipo di operazioni.
+
+Con tf.config.list_physical_devices() possiamo vedere se TFsta girando su CPU o su GPU. Nel mio caso avendo abilitato la GPU rileva
+sia la GPU che la CPU, se la disabilitassi con pip uninstall tensorflow-directml-plugin rileverebbe solo la CPU.
+Per impostazione predefinita, TensorFlow sceglierà la GPU se disponibile, altrimenti utilizzerà la CPU. 
+Quindi, nel mio caso, TensorFlow utilizzerà la GPU per l'esecuzione, a meno che non venga specificato diversamente.
+
+Le GPU AMD Radeon, come la Radeon RX 5700, non utilizzano l'architettura CUDA di NVIDIA. CUDA (Compute Unified Device Architecture) è una piattaforma di calcolo parallelo e un modello di programmazione specifico per le GPU NVIDIA.
+Per le GPU AMD, viene utilizzata una piattaforma di calcolo aperta chiamata ROCm (Radeon Open Compute). ROCm offre un ambiente di calcolo parallelo e un modello di programmazione per GPU AMD simile a CUDA per GPU NVIDIA. ROCm supporta anche il linguaggio di programmazione OpenCL, che è un linguaggio di programmazione standard e aperto per il calcolo parallelo su diverse piattaforme, tra cui CPU, GPU e altri acceleratori.
+Se vuoi eseguire workload basati su TensorFlow su GPU AMD, dovrai utilizzare TensorFlow-ROCm, una versione di TensorFlow ottimizzata per GPU AMD. Puoi trovare ulteriori informazioni su TensorFlow-ROCm e su come installarlo nella documentazione ufficiale di ROCm: https://rocmdocs.amd.com/en/latest/Deep_learning/Deep-learning.html#tensorflow

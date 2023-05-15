@@ -200,7 +200,7 @@ G_squeezed= tf.squeeze(G)
 print(G_squeezed) #praticamente levo tutte le quadre inutili
 """
 #One-hot encoding
-
+"""
 # Etichette categoriche (ad esempio, classi di numeri interi)
 list = [0, 1, 2, 3]
 
@@ -211,6 +211,57 @@ num_classes = 4
 one_hot_encoded = tf.one_hot(list, depth=num_classes)
 
 print(one_hot_encoded)
+"""
+#More math operations
+"""
+H = tf.range(1,10)
 
+H_square = tf.square(H)
+print(H_square)
 
+H_square_cast = tf.cast(H_square, dtype=tf.int16)
+print(H_square_cast)
 
+H_log = tf.math.log(tf.cast(H, dtype= tf.float32))
+print(H_log)
+"""
+#Tensorflow with NumPy
+
+import numpy as np
+"""
+J = tf.constant(np.array([3., 7., 10.]))
+J_n = np.array(J)
+
+print(J.dtype, J_n.dtype)
+
+K=  tf.constant([3., 7., 10.])
+print(K.dtype) # in quewsto esempio possiamo vedere che il dtype di numpy di default è il 64, mentre quello di tf è il 32
+"""
+#TF vs NUMPY
+"""
+import time
+
+# Dimensioni delle matrici
+size = 10000
+
+# Creazione di matrici casuali
+np_matrix1 = np.random.random((size, size))
+np_matrix2 = np.random.random((size, size))
+
+tf_matrix1 = tf.constant(np_matrix1, dtype=tf.float32)
+tf_matrix2 = tf.constant(np_matrix2, dtype=tf.float32)
+
+# Calcolo del tempo di esecuzione per NumPy
+start_time = time.time()
+np_result = np.dot(np_matrix1, np_matrix2)
+numpy_time = time.time() - start_time
+print("Tempo di esecuzione con NumPy: {:.2f} secondi".format(numpy_time))
+
+# Calcolo del tempo di esecuzione per TensorFlow
+start_time = time.time()
+tf_result = tf.matmul(tf_matrix1, tf_matrix2)
+tensorflow_time = time.time() - start_time
+print("Tempo di esecuzione con TensorFlow: {:.2f} secondi".format(tensorflow_time))
+
+print(tf.config.list_physical_devices())
+"""
