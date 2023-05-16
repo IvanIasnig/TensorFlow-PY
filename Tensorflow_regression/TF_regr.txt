@@ -42,3 +42,15 @@ Output activation                      None, ReLU, logistic/tanh
 Loss function                          MSE (mean square error) or MAE (mean absolute error)/Huber (combination of MAE/MSE) if outliers
 
 Optimizer                              SGD (stochastic gradient descent), Adam
+
+----------------------creating sample regression data---------------------------------
+
+Primo passo nella creazione di un modello di regressione lineare. Ecco un riassunto di ciò che fa:
+
+1. Importa le librerie necessarie: TensorFlow per la creazione del modello di machine learning, numpy per le operazioni sui dati e matplotlib per la visualizzazione dei dati.
+2. Crea un set di dati di esempio per la regressione lineare. `X` è la variabile indipendente e `y` è la variabile dipendente. In questo caso, i dati sono lineari e sembrano seguire la relazione y = X + 10.
+3. Visualizza i dati utilizzando un grafico a dispersione (`scatter plot`). Questo serve per avere un'idea di come sono distribuiti i dati e per confermare che sembrano seguire una relazione lineare.
+4. Esegue `plt.show()` per mostrare effettivamente il grafico a dispersione.
+5. Crea due tensori TensorFlow `house_info` e `house_price`. Questi rappresentano un esempio di input e output per un modello di regressione. Nel contesto della predizione del prezzo delle case, potresti avere informazioni sulla casa come il numero di camere da letto, bagni e garage come input (`house_info`), e il prezzo della casa come output (`house_price`).
+
+Tuttavia, questo codice non crea ancora un modello di regressione lineare. Sarebbero necessari ulteriori passaggi, come la creazione del modello utilizzando `tf.keras`, l'addestramento del modello sui dati e la valutazione delle sue prestazioni.
