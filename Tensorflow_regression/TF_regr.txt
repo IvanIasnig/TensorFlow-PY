@@ -1,0 +1,44 @@
+------------------------------LINEAR REGRESSION----------------------------------------------
+
+La regressione lineare è un metodo statistico che permette di esaminare la relazione tra due o più variabili di interesse. Mentre una regressione lineare semplice esamina la relazione tra due variabili (una variabile indipendente e una variabile dipendente), una regressione lineare multipla esamina la relazione tra tre o più variabili (una o più variabili indipendenti e una variabile dipendente).
+Es: var. dipendente -> prezzo casa var. indipendente-> numero di stanze della casa, mq ecc... 
+Si può usare l'one-hot per gli inputes: [[0,0,0,1], ->ha 3 stanze
+                                         [0,1,0,0], -> ha 1 bagno
+                                         [1,0,0,0]] -> ha 0 garage
+
+L'obiettivo della regressione lineare è trovare la linea di migliore adattamento attraverso i dati. Questa linea è chiamata linea di regressione.
+
+Nel contesto di regressione lineare, il termine "lineare" si riferisce al fatto che la relazione tra le variabili indipendenti e la variabile dipendente può essere espressa come una somma pesata delle variabili indipendenti, più un termine di errore. La relazione può essere espressa con la seguente formula:
+
+y = a + b*X + e
+
+Dove:
+- y è la variabile dipendente (o "risposta")
+- X è la variabile indipendente (o "caratteristica", "predittore" o "input")
+- a è l'intercetta (o "coefficiente di regressione lineare")
+- b è la pendenza (o "coefficiente di regressione")
+- e è l'errore (o "residuo")
+
+L'intercetta, a, rappresenta il valore previsto di y quando tutte le variabili indipendenti (X) sono uguali a zero. La pendenza, b, rappresenta il cambiamento previsto in y per un aumento di una unità in X. L'errore, e, rappresenta la differenza tra il valore effettivo e il valore previsto di y.
+
+La regressione lineare può essere utilizzata per predire valori futuri, ma deve essere usata con cautela quando si tratta di estendere le previsioni al di fuori dell'intervallo dei dati osservati.
+
+------------------------------------- TYPICAL DATA -----------------------------------------------------
+
+HYPERPARAMETER                         TYPICAL VALUE 
+                                                                            
+Input layer shape                      Same shape as number of features (e.g. 3 for # bedrooms, # bathrooms, # car spaces in housing price prediction)
+                                                                           
+Hidden layer(s)                        Problem specific, minimum = 1, maximum = unlimited      
+
+Neurons per hidden layer               Problem specific, generally 10 to 100
+
+Output layer shape                     Same shape as desired prediction shape (e.g. 1 for house price)
+
+Hidden activation                      Usually ReLU (rectified linear unit)
+
+Output activation                      None, ReLU, logistic/tanh
+
+Loss function                          MSE (mean square error) or MAE (mean absolute error)/Huber (combination of MAE/MSE) if outliers
+
+Optimizer                              SGD (stochastic gradient descent), Adam
