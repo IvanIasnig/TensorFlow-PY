@@ -139,3 +139,26 @@ MIGLIORAMENTO DI UN MODELLO:
 
 Nell'ultimo esempio di questa serie di 3 snippet di codice riguardo a "improving a model" si vede che cambiando i parametri forniti riceviamo un output più accurato addirittura riducendo a 
 1/10 il numero delle epoche (siamo passati dalle 1000  del codice sopra a 100). Di base siamo andati a tarare in maniera migliore il codice usando i suggerimenti dell'elenco qui sopra.
+
+-------------------Evaluating a TensorFlow model part 1 ("visualise, visualise, visualise")------------
+
+When it comes to evaluation, you'll want to remember the words: "visualize, visualize, visualize."
+This is because you're probably better looking at something (doing) than you are thinking about something.
+It's a good idea to visualize:
+
+The data - what data are you working with? What does it look like?
+The model itself - what does the architecture look like? What are the different shapes?
+The training of a model - how does a model perform while it learns?
+The predictions of a model - how do the predictions of a model line up against the ground truth (the original labels)?
+Let's start by visualizing the model.
+
+---
+
+Split data into training/test set
+One of the other most common and important steps in a machine learning project is creating a training and test set (and when required, a validation set).
+
+Each set serves a specific purpose:
+
+Training set - the model learns from this data, which is typically 70-80% of the total data available (like the course materials you study during the semester).
+Validation set - the model gets tuned on this data, which is typically 10-15% of the total data available (like the practice exam you take before the final exam).
+Test set - the model gets evaluated on this data to test what it has l

@@ -72,6 +72,7 @@ print(output)
 
 #Steps in improving a model with TensorFlow 2/3
 
+"""
 # Create features (using tensors)
 X = tf.constant([-7.0, -4.0, -1.0, 2.0, 5.0, 8.0, 11.0, 14.0])
 
@@ -95,4 +96,32 @@ model.fit(tf.expand_dims(X, axis=-1), y, epochs=100)
 # Make a prediction with the model
 output = model.predict([17.0])
 print(output)
+"""
 
+# Evaluating a TensorFlow model part 1 
+
+import matplotlib.pyplot as plt
+
+X = tf.range(-100, 100, 4)
+
+y = X + 10
+print(y)
+
+#plt.plot(X, y)
+#plt.show() #importante visualizzare il modello
+
+print(len(X))
+
+X_train = X[:40]
+y_train = y[:40]
+
+
+X_test = X[40:]
+y_test = y[40:]
+
+print(len(X_test),len(y_test),len(X_train),len(y_train))
+
+plt.figure(figsize=(10,7))
+plt.scatter(X_train, y_train, c="b", label="Training data")
+plt.scatter(X_test, y_test, c="g", label="Testing data")
+plt.show()
