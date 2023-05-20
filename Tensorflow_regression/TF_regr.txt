@@ -133,9 +133,9 @@ To improve our model, we alter almost every part of the 3 steps we went through 
 
 MIGLIORAMENTO DI UN MODELLO:
 
-Creating a model - here you might want to add more layers, increase the number of hidden units (also called neurons) within each layer, change the activation functions of each layer.
-Compiling a model - you might want to choose optimization function or perhaps change the learning rate of the optimization function.
-Fitting a model - perhaps you could fit a model for more epochs (leave it training for longer) or on more data (give the model more examples to learn from).
+1. Creating a model - here you might want to add more layers, increase the number of hidden units (also called neurons) within each layer, change the activation functions of each layer.
+2. Compiling a model - you might want to choose optimization function or perhaps change the learning rate of the optimization function.
+3. Fitting a model - perhaps you could fit a model for more epochs (leave it training for longer) or on more data (give the model more examples to learn from).
 
-Nellì'ultimo esempio di questa serie di 3 snippet di codice riguardo a "improving a model" si vede che cambiando i parametri forniti riceviamo un output più accurato addirittura riducendo a 
-1/10 il numero delle epoche (siamo passati dalle 1000  del codice sopra a 100)
+Nell'ultimo esempio di questa serie di 3 snippet di codice riguardo a "improving a model" si vede che cambiando i parametri forniti riceviamo un output più accurato addirittura riducendo a 
+1/10 il numero delle epoche (siamo passati dalle 1000  del codice sopra a 100). Di base siamo andati a tarare in maniera migliore il codice usando i suggerimenti dell'elenco qui sopra.
