@@ -54,3 +54,88 @@ Primo passo nella creazione di un modello di regressione lineare. Ecco un riassu
 5. Crea due tensori TensorFlow `house_info` e `house_price`. Questi rappresentano un esempio di input e output per un modello di regressione. Nel contesto della predizione del prezzo delle case, potresti avere informazioni sulla casa come il numero di camere da letto, bagni e garage come input (`house_info`), e il prezzo della casa come output (`house_price`).
 
 Tuttavia, questo codice non crea ancora un modello di regressione lineare. Sarebbero necessari ulteriori passaggi, come la creazione del modello utilizzando `tf.keras`, l'addestramento del modello sui dati e la valutazione delle sue prestazioni.
+
+-------------------------------first regr-----------------------------------------------
+
+```
+X = tf.constant([-7.0, -4.0, -1.0, 2.0, 5.0, 8.0, 11.0, 14.0])
+```
+Questa riga crea un tensore TensorFlow `X` che contiene i dati delle features, ovvero le variabili di ingresso del nostro modello. I tensori sono un concetto chiave in TensorFlow e rappresentano 
+una generalizzazione dei vettori e matrici a più dimensioni.
+
+```
+y = tf.constant([3.0, 6.0, 9.0, 12.0, 15.0, 18.0, 21.0, 24.0])
+```
+Questa riga crea un altro tensore `y` che contiene le etichette (labels) o i target, ovvero i valori di uscita che il nostro modello dovrebbe prevedere.
+
+```
+model = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+```
+Questa parte del codice crea il modello di rete neurale utilizzando l'API Sequential di Keras. Il modello è composto da un solo strato, un Dense layer, che è lo strato più comune in una rete neurale. 
+Un Dense layer è un layer di neuroni completamente connessi, cioè ogni neurone in uno strato è connesso a tutti i neuroni nello strato precedente.
+Il parametro `1` indica che ci sarà un solo neurone in questo strato, che è comune in modelli di regressione lineare.
+
+```
+model.compile(loss=tf.keras.losses.mae, 
+              optimizer=tf.keras.optimizers.SGD(), 
+              metrics=["mae"])
+```
+La funzione `compile` configura il processo di apprendimento del modello. Si specificano tre cose: la funzione di perdita, l'ottimizzatore e le metriche. 
+La funzione di perdita (loss function) è la funzione che il modello cercherà di minimizzare durante l'addestramento. In questo caso, si utilizza l'errore medio assoluto (MAE - Mean Absolute Error).
+L'ottimizzatore determina come il modello si aggiorna e apprende dai suoi dati. SGD (Stochastic Gradient Descent) è un metodo comune per ottimizzare i modelli di apprendimento automatico, e in particolare le reti neurali.
+Le metriche sono utilizzate per monitorare le fasi di addestramento e test. In questo caso, si utilizza anche MAE come metrica.
+
+```
+model.fit(tf.expand_dims(X, axis=-1), y, epochs=1000)
+```
+La funzione `fit` è dove avviene effettivamente l'addestramento del modello. Gli argomenti sono le features e le etichette (X e y), e il numero di epoche, che è il numero di volte che il modello 
+attraverserà l'intero dataset. 
+
+In questo caso, l'addestramento viene eseguito per 1000 epoche. Il comando `tf.expand_dims(X, axis=-1)` viene utilizzato per modificare la forma del tensore `X` aggiungendo una dimensione extra, 
+necessaria per l'addestramento del modello. Questo perché la funzione `fit` richiede che le features di ingresso siano un tensore 2D, e attualmente `X` è un tensore 1D.
+
+```
+output = model.predict([17.0])
+print(output)
+```
+Infine, una volta che il modello è stato addestrato, possiamo utilizzarlo per fare previsioni su nuovi dati. In questo caso, stiamo cercando di prevedere l'output corrispondente al valore di input 17.0. Il risultato della previsione viene poi stampato a schermo.
+
+In sintesi, il codice sta creando un modello di rete neurale semplice per eseguire una regressione lineare su un set di dati. Il modello viene poi addestrato su quei dati e utilizzato per fare una previsione.
+
+--------------------- Steps in improving a model with TensorFlow 1/2/3 -----------------------
+
+Il secondo codice che hai fornito è un esempio di un modello di rete neurale profonda, in contrasto con il primo codice che è un modello di regressione lineare semplice. Qui ci sono alcune delle differenze chiave tra i due codici:
+
+1. **Struttura del modello**: Il secondo codice utilizza un modello di rete neurale profonda, con tre strati nascosti, ciascuno con 100 neuroni. Questo è evidente dalla sequenza di strati nel modello: 
+    ```
+    model = tf.keras.Sequential([
+      tf.keras.layers.Dense(100, activation="relu"),
+      tf.keras.layers.Dense(100, activation="relu"),
+      tf.keras.layers.Dense(100, activation="relu"),
+      tf.keras.layers.Dense(1)
+    ])
+    ```
+    Ogni strato nascosto utilizza la funzione di attivazione ReLU (Rectified Linear Unit), che è una funzione comune per le reti neurali. L'ultimo strato ha un solo neurone, che emette il risultato finale. 
+2. **Ottimizzatore**: Il secondo codice utilizza l'ottimizzatore Adam invece dello Stochastic Gradient Descent (SGD) utilizzato nel primo codice. Adam è un ottimizzatore più avanzato che utilizza un tasso di apprendimento adattivo. Inoltre, il codice specifica un tasso di apprendimento (`lr`) di 0.0001 per l'ottimizzatore Adam.
+3. **Epoca**: L'ultimo punto principale è che nel secondo codice, il modello viene allenato per 5000 epoche, rispetto a 1000 nel primo codice. Questo può essere dovuto al fatto che le reti neurali profonde possono richiedere più tempo per convergere o per imparare i dati.
+In sintesi, il secondo codice è più complesso e potrebbe avere la capacità di modellare relazioni più complesse nei dati grazie all'uso di una rete neurale profonda. Tuttavia, avrà bisogno di più tempo per l'addestramento rispetto al primo codice a causa del numero maggiore di parametri e del numero più alto di epoche.
+
+Spesso si spacchettano i modelli di AI in modo da andarte a verificare il corretto funzionamento della rete.
+
+Improving a model
+How do you think you'd improve upon our current model?
+
+If you guessed by tweaking some of the things we did above, you'd be correct.
+
+To improve our model, we alter almost every part of the 3 steps we went through before.
+
+MIGLIORAMENTO DI UN MODELLO:
+
+Creating a model - here you might want to add more layers, increase the number of hidden units (also called neurons) within each layer, change the activation functions of each layer.
+Compiling a model - you might want to choose optimization function or perhaps change the learning rate of the optimization function.
+Fitting a model - perhaps you could fit a model for more epochs (leave it training for longer) or on more data (give the model more examples to learn from).
+
+Nellì'ultimo esempio di questa serie di 3 snippet di codice riguardo a "improving a model" si vede che cambiando i parametri forniti riceviamo un output più accurato addirittura riducendo a 
+1/10 il numero delle epoche (siamo passati dalle 1000  del codice sopra a 100)
