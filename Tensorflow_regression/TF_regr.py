@@ -115,7 +115,6 @@ print(len(X))
 X_train = X[:40]
 y_train = y[:40]
 
-
 X_test = X[40:]
 y_test = y[40:]
 
@@ -124,4 +123,38 @@ print(len(X_test),len(y_test),len(X_train),len(y_train))
 plt.figure(figsize=(10,7))
 plt.scatter(X_train, y_train, c="b", label="Training data")
 plt.scatter(X_test, y_test, c="g", label="Testing data")
-plt.show()
+# plt.show()
+
+#model.build() potevo usare questo metodo per farlo partire, ma è meglio dargli la input shape (senza non avrebbe funzionato)
+#la shape indica che vogliamo un output per uninput rivecuto
+
+tf.random.set_seed(42)
+
+#creatre a model
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(1, input_shape=[1])
+])
+
+#compile a model
+model.compile(loss=tf.keras.losses.mae,
+              optimizer=tf.keras.optimizers.SGD(),
+              metrics=["mae"])
+
+model.summary()
+#output ->
+#Model: "sequential"
+# _________________________________________________________________
+#  Layer (type)                Output Shape              Param #
+# =================================================================
+#  dense (Dense)               (None, 1)                 2
+
+# =================================================================
+# Total params: 2
+# Trainable params: 2
+# Non-trainable params: 0
+# _________________________________________________________________
+
+model.fit(X_train, y_train, epochs=1000, verbose=1)
+
+output = model.predict([104.0])
+print(output)
