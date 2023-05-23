@@ -98,8 +98,8 @@ output = model.predict([17.0])
 print(output)
 """
 
-# Evaluating a TensorFlow model part 1 
-
+# Evaluating a TensorFlow model part 1 -4
+"""
 import matplotlib.pyplot as plt
 
 X = tf.range(-100, 100, 4)
@@ -132,8 +132,9 @@ tf.random.set_seed(42)
 
 #creatre a model
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(1, input_shape=[1])
-])
+    tf.keras.layers.Dense(10, input_shape=[1], name="input_layer"),
+    tf.keras.layers.Dense(1, name="output_layer")
+], name="one_of_many_model_we_will_build")
 
 #compile a model
 model.compile(loss=tf.keras.losses.mae,
@@ -154,7 +155,60 @@ model.summary()
 # Non-trainable params: 0
 # _________________________________________________________________
 
-model.fit(X_train, y_train, epochs=1000, verbose=1)
+model.fit(X_train, y_train, epochs=100, verbose=1)
 
-output = model.predict([104.0])
-print(output)
+from keras.utils import plot_model
+
+plot_model(model, show_shapes=True)
+"""
+
+# Evaluating a TensorFlow model part 5
+
+import matplotlib.pyplot as plt
+from keras.utils import plot_model #stesso codice di prima (ho tolto alcune cose di visualizzazione pura)
+
+X = tf.range(-100, 100, 4)
+
+y = X + 10
+print(y)
+
+
+X_train = X[:40]
+y_train = y[:40]
+
+X_test = X[40:]
+y_test = y[40:]
+
+
+#creatre a model
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(10, input_shape=[1], name="input_layer"),
+    tf.keras.layers.Dense(1, name="output_layer")
+], name="one_of_many_model_we_will_build")
+
+#compile a model
+model.compile(loss=tf.keras.losses.mae,
+              optimizer=tf.keras.optimizers.SGD(),
+              metrics=["mae"])
+
+model.summary()
+
+model.fit(X_train, y_train, epochs=100, verbose=1)
+
+plot_model(model, show_shapes=True)
+
+y_pred = model.predict(X_test) #siamo andati ad agire solo sulla parte del test! Quindi i primi 40 numeri!
+print(y_pred) 
+print(y_test)
+
+
+plt.figure(figsize=(10, 7))
+# Plot training data in blue
+plt.scatter(X_train, y_train, c="b", label="Training data")
+# Plot test data in green
+plt.scatter(X_test, y_test, c="g", label="Testing data")
+# Plot the predictions in red (predictions were made on the test data)
+plt.scatter(X_test, y_pred, c="r", label="Predictions")
+# Show the legend
+plt.legend();
+plt.show();

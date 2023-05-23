@@ -140,7 +140,7 @@ MIGLIORAMENTO DI UN MODELLO:
 Nell'ultimo esempio di questa serie di 3 snippet di codice riguardo a "improving a model" si vede che cambiando i parametri forniti riceviamo un output più accurato addirittura riducendo a 
 1/10 il numero delle epoche (siamo passati dalle 1000  del codice sopra a 100). Di base siamo andati a tarare in maniera migliore il codice usando i suggerimenti dell'elenco qui sopra.
 
--------------------Evaluating a TensorFlow model part 1 ("visualise, visualise, visualise")------------
+-------------------Evaluating a TensorFlow model part 1 -4 -----------------------
 
 When it comes to evaluation, you'll want to remember the words: "visualize, visualize, visualize."
 This is because you're probably better looking at something (doing) than you are thinking about something.
@@ -163,15 +163,47 @@ Training set - the model learns from this data, which is typically 70-80% of the
 Validation set - the model gets tuned on this data, which is typically 10-15% of the total data available (like the practice exam you take before the final exam).
 Test set - the model gets evaluated on this data to test what it has learned, it's typically 10-15% of the total data available (like the final exam you take at the end of the semester).
 
-1. `plt.figure(figsize=(10,7))`: Questa riga crea una nuova figura (un'area di disegno) su cui verranno effettuate tutte le operazioni di tracciamento successive. `figsize=(10,7)` è un parametro opzionale che indica le dimensioni della figura in pollici (larghezza, altezza). Quindi in questo caso, la figura sarà larga 10 pollici e alta 7 pollici.
-2. `plt.scatter(X_train, y_train, c="b", label="Training data")`: Questa riga traccia un diagramma di dispersione (scatter plot) dei dati di training. `X_train` e `y_train` sono le coordinate dei punti da tracciare. `c="b"` indica il colore dei punti, in questo caso blu (b sta per "blue" in inglese). `label="Training data"` assegna un'etichetta ai punti, che può essere utilizzata per creare una legenda.
-3. `plt.scatter(X_test, y_test, c="g", label="Testing data")`: Questa riga traccia un altro diagramma di dispersione per i dati di test sulla stessa figura. `X_test` e `y_test` sono le coordinate dei punti da tracciare. `c="g"` indica il colore dei punti, in questo caso verde (g sta per "green" in inglese). `label="Testing data"` assegna un'etichetta ai punti, che può essere utilizzata per creare una legenda.
 
-1. `model = tf.keras.Sequential([...])`: Questa riga sta creando un nuovo modello sequenziale utilizzando il modulo keras di TensorFlow. Un modello sequenziale è un tipo di modello che consiste in una pila lineare di layer.
-2. `tf.keras.layers.Dense(1, input_shape=[1])`: Qui stai aggiungendo un layer al tuo modello. Il layer che stai aggiungendo è un "layer denso", che è un tipo di layer neuralmente connesso in cui ogni neurone riceve input da ogni neurone del layer precedente. Il numero 1 tra parentesi indica che ci sarà solo un neurone in questo layer. `input_shape=[1]` indica che la forma dell'input che viene fornito a questo layer ha una sola dimensione.
-3. `model.compile(...)`: Questa funzione compila il modello. Significa che stai definendo la funzione di perdita, l'ottimizzatore e le metriche che vuoi utilizzare. La funzione di perdita è la funzione che il tuo modello cercherà di minimizzare durante l'addestramento. L'ottimizzatore è l'algoritmo che il tuo modello utilizzerà per minimizzare la funzione di perdita. Le metriche sono le funzioni utilizzate per giudicare le prestazioni del tuo modello.
+1. `X = tf.range(-100, 100, 4)`: Questo comando crea un tensore con una serie di valori che inizia da -100, finisce a 100 e con uno step di 4.
+2. `y = X + 10`: Questo crea un nuovo tensore `y` che è semplicemente il tensore `X` con 10 aggiunto a ciascun elemento.
+3. `X_train = X[:40], y_train = y[:40]`: Queste righe dividono i tuoi dati originali nei set di training. Prendono i primi 40 elementi di `X` e `y`.
+4. `X_test = X[40:], y_test = y[40:]`: Queste righe dividono i tuoi dati originali nei set di test. Prendono gli elementi di `X` e `y` dall'indice 40 in poi.
+5. Creazione del modello con `tf.keras.Sequential`: Questo crea un modello sequenziale con due layer. Il primo layer ha 10 neuroni ed accetta un input di shape [1]. Il secondo layer è il layer di output e ha un singolo neurone.
+6. `model.compile(...)`: Questa funzione compila il modello. Significa che stai definendo la funzione di perdita, l'ottimizzatore e le metriche che vuoi utilizzare. La funzione di perdita è la funzione che il tuo modello cercherà di minimizzare durante l'addestramento. L'ottimizzatore è l'algoritmo che il tuo modello utilizzerà per minimizzare la funzione di perdita. Le metriche sono le funzioni utilizzate per giudicare le prestazioni del tuo modello.
    - `loss=tf.keras.losses.mae`: Qui stai utilizzando Mean Absolute Error (MAE) come funzione di perdita.
    - `optimizer=tf.keras.optimizers.SGD()`: Stai utilizzando il Stochastic Gradient Descent (SGD) come ottimizzatore.
    - `metrics=["mae"]`: Vuoi che il tuo modello monitori MAE come metrica durante l'addestramento.
-4. `model.summary()`: Questa riga stampa un riepilogo del tuo modello. Mostra i layer del modello, la forma dell'output di ciascun layer, e il numero di parametri (pesi e bias) in ciascun layer.
-5. `model.fit(X_train, y_train, epochs=1000, verbose=1)`: Infine, questa riga addestra il modello sui dati di addestramento per un numero specificato di epoche (in questo caso, 1000). Un'epoca è un singolo passaggio attraverso l'intero set di dati di addestramento. `verbose=1` significa che la funzione stamperà un log dell'addestramento per ogni epoca.
+7. `model.summary()`: Questa riga stampa un riepilogo del tuo modello. Mostra i layer del modello, la forma dell'output di ciascun layer, e il numero di parametri (pesi e bias) in ciascun layer.
+8. `model.fit(X_train, y_train, epochs=100, verbose=1)`: Questa riga addestra il modello sui dati di addestramento per 100 epoche. Un'epoca è un singolo passaggio attraverso l'intero set di dati di addestramento.
+9. `plot_model(model, show_shapes=True)`: Questa funzione di keras genera una rappresentazione grafica del modello. Mostra i layer del modello, le loro forme di output e mostra anche i nomi dei layer. Il parametro `show_shapes=True` indica alla funzione di mostrare le forme di input e output di ogni layer.
+
+-------------------------Evaluating a TensorFlow model part 5-----------------------
+
+Stesso codice di prima, riprendiamo dal y_pred = model.predict(X_test)
+
+risultato trovato -> y_pred 
+[[ 67.01532 ]
+ [ 71.36802 ]
+ [ 75.72072 ]
+ [ 80.07342 ]
+ [ 84.426125]
+ [ 88.778824]
+ [ 93.13152 ]
+ [ 97.48424 ]
+ [101.83692 ]
+ [106.18962 ]]
+
+risultato atteso -> y_test
+tf.Tensor([ 70  74  78  82  86  90  94  98 102 106], shape=(10,), dtype=int32)
+
+🔑 Note: If you think you're going to be visualizing something a lot, it's a good idea to functionize it so you can use it later.
+
+def plot_predictions(train_data=X_train, 
+                     train_labels=y_train, 
+                     test_data=X_test, 
+                     test_labels=y_test, 
+                     predictions=y_preds):
+
+Purtroppo, credo a caausa di un cambiamento nella sintassi non mi funzionava la sintassi del plot_predicctions qui sopra.
+Quindi sono andato a rifare il grafico di mat_plot usando i dati originari, in verde abbiamo la parte del test, in rosso i valori che ci vengono fuori.
+Ovviamente in parole povere la distanza tra i due raprresente l'errore riscontrato nel nostro grafico.
