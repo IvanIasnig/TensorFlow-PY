@@ -232,7 +232,6 @@ X = tf.range(-100, 100, 4)
 y = X + 10
 print(y)
 
-
 X_train = X[:40]
 y_train = y[:40]
 
@@ -273,3 +272,55 @@ mae_1 = mae(y_test, y_preds_1.squeeze()).numpy()
 mse_1 = mse(y_test, y_preds_1.squeeze()).numpy()
 print(mae_1, mse_1)
 """
+
+# Setting up TensorFlow modelling experiments part 2 (increasing complexity)
+
+"""
+X = tf.range(-100, 100, 4)
+
+y = X + 10
+print(y)
+
+X_train = X[:40]
+y_train = y[:40]
+
+X_test = X[40:]
+y_test = y[40:]
+
+tf.random.set_seed(42)
+
+model_2 = tf.keras.Sequential([
+  tf.keras.layers.Dense(64, activation= "relu"), #aggiunto hidden layer prima dell'output layer
+  tf.keras.layers.Dense(1) #output layer come prima
+])
+
+model_2.compile(loss=tf.keras.losses.mae,
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['mae'])
+
+model_2.fit(tf.expand_dims(X_train, axis=-1), y_train, epochs=500) #aumentato il numero di epoches
+
+y_preds_1 = model_2.predict(X_test)
+
+plt.figure(figsize=(10, 7))
+plt.scatter(X_train, y_train, c="b", label="Training data")
+plt.scatter(X_test, y_test, c="g", label="Testing data")
+plt.scatter(X_test, y_preds_1, c="r", label="Predictions")
+plt.legend();
+plt.show();
+
+def mae(y_test, y_pred):
+  return tf.metrics.mean_absolute_error(y_test,
+                                        y_pred)
+  
+def mse(y_test, y_pred):
+  return tf.metrics.mean_squared_error(y_test,
+                                       y_pred)
+
+# Calculate model_2 metrics
+mae_1 = mae(y_test, y_preds_1.squeeze()).numpy()
+mse_1 = mse(y_test, y_preds_1.squeeze()).numpy()
+print(mae_1, mse_1)
+"""
+
+# Comparing and tracking your TensorFlow modelling experiments

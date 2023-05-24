@@ -212,7 +212,7 @@ Nei 3 video successivi mostra la differenza tra il mae il mse, calcolandoli sepa
 Questi video non mi sembvravano importanti, l'unica cosa importante è (come al solito) fare attenzione alla shape dei tensori.
 Potevo scriverli anche entrambi con questa sintassi: tf.keras.losses.mae
 
----------------------------Setting up TensorFlow modelling experiments part 1 (start with a simple model)-----------------
+-------------------------- Setting up TensorFlow modelling experiments part 1 (start with a simple model)-----------------
 
 Running experiments to improve a model
 After seeing the evaluation metrics and the predictions your model makes, it's likely you'll want to improve it.
@@ -222,3 +222,18 @@ Again, there are many different ways you can do this, but 3 of the main ones are
 Get more data - get more examples for your model to train on (more opportunities to learn patterns).
 Make your model larger (use a more complex model) - this might come in the form of more layers or more hidden units in each layer.
 Train for longer - give your model more of a chance to find the patterns in the data.
+
+------------------------- Setting up TensorFlow modelling experiments part 2 (increasing complexity)------------------------------
+
+Aggunto un'hidden layer prima dell'ouput layer : tf.keras.layers.Dense(64, activation= "relu").
+Aggiunte epoches (sempre stare attenti a non aggiungerne troppe sennò il modello va in overfitting, quindi impara il modello ma non lo generalizza)
+
+Gli hidden layers in una rete neurale hanno la funzione di apprendere rappresentazioni astratte dei dati di input. Sono chiamati "hidden" perché non sono né input né output: lavorano in background per trasformare i dati in modi che permettono alla rete di fare previsioni accurate.
+Ogni hidden layer in una rete neurale è composto da un numero di nodi o "neuroni". Ogni nodo prende un insieme di input, esegue una somma pesata di questi input, applica una funzione di attivazione a questa somma e quindi passa il risultato agli nodi nel layer successivo. 
+Ad esempio, in una rete neurale completamente connessa o "densa", ogni nodo nel primo hidden layer prende l'intero set di input, esegue la sua somma pesata, applica la sua funzione di attivazione e passa il risultato a ogni nodo nel secondo hidden layer. Questo processo si ripete attraverso ogni hidden layer fino a raggiungere l'output layer.
+Gli hidden layers permettono alla rete neurale di apprendere rappresentazioni complesse dei dati. Con un singolo hidden layer, una rete neurale può apprendere qualsiasi funzione che separa i dati in modo lineare. Ma aggiungendo più hidden layers, la rete può apprendere funzioni che separano i dati in modo non lineare. Questo è importante perché molti problemi del mondo reale sono non lineari.
+Ad esempio, immagina di avere un insieme di immagini di gatti e cani e vuoi che la tua rete neurale classifichi le immagini. Gli input alla tua rete sarebbero i pixel delle immagini. Il primo hidden layer potrebbe apprendere a riconoscere caratteristiche semplici come linee e colori. Il secondo hidden layer potrebbe costruire su questo per riconoscere forme più complesse come occhi e nasi. Il terzo hidden layer potrebbe riconoscere intere facce di gatti e cani.
+ Infine, l'output layer prenderebbe queste rappresentazioni ad alto livello delle immagini e farebbe la sua previsione: gatto o cane.
+Pertanto, gli hidden layers sono fondamentali per l'apprendimento profondo e l'apprendimento di rappresentazioni complesse dei dati.
+
+------------------------ Comparing and tracking your TensorFlow modelling experiments--------------
