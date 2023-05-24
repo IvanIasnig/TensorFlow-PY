@@ -1,5 +1,6 @@
 #creating sample regression data
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 """
 X = np.array([-7.0, -4.0, -1.0, 2.0, 5.0, 8.0, 11.0, 14.0]) # Create features
@@ -162,8 +163,9 @@ from keras.utils import plot_model
 plot_model(model, show_shapes=True)
 """
 
-# Evaluating a TensorFlow model part 5
+# Evaluating a TensorFlow model part 5/6/7
 
+"""
 import matplotlib.pyplot as plt
 from keras.utils import plot_model #stesso codice di prima (ho tolto alcune cose di visualizzazione pura)
 
@@ -212,3 +214,62 @@ plt.scatter(X_test, y_pred, c="r", label="Predictions")
 # Show the legend
 plt.legend();
 plt.show();
+
+
+mae = tf.keras.losses.mae(y_true=y_test, 
+                                     y_pred=y_pred.squeeze())
+print(mae)
+
+mse = tf.keras.losses.mse(y_true=y_test, 
+                                     y_pred=y_pred.squeeze())
+print(mse)
+"""
+
+# Setting up TensorFlow modelling experiments part 1 (start with a simple model)
+"""
+X = tf.range(-100, 100, 4)
+
+y = X + 10
+print(y)
+
+
+X_train = X[:40]
+y_train = y[:40]
+
+X_test = X[40:]
+y_test = y[40:]
+
+tf.random.set_seed(42)
+
+model_1 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+
+model_1.compile(loss=tf.keras.losses.mae,
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['mae'])
+
+model_1.fit(tf.expand_dims(X_train, axis=-1), y_train, epochs=100)
+
+y_preds_1 = model_1.predict(X_test)
+
+plt.figure(figsize=(10, 7))
+plt.scatter(X_train, y_train, c="b", label="Training data")
+plt.scatter(X_test, y_test, c="g", label="Testing data")
+plt.scatter(X_test, y_preds_1, c="r", label="Predictions")
+plt.legend();
+plt.show();
+
+def mae(y_test, y_pred):
+  return tf.metrics.mean_absolute_error(y_test,
+                                        y_pred)
+  
+def mse(y_test, y_pred):
+  return tf.metrics.mean_squared_error(y_test,
+                                       y_pred)
+
+# Calculate model_1 metrics
+mae_1 = mae(y_test, y_preds_1.squeeze()).numpy()
+mse_1 = mse(y_test, y_preds_1.squeeze()).numpy()
+print(mae_1, mse_1)
+"""

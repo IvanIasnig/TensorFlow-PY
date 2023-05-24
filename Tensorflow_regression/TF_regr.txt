@@ -207,3 +207,18 @@ def plot_predictions(train_data=X_train,
 Purtroppo, credo a caausa di un cambiamento nella sintassi non mi funzionava la sintassi del plot_predicctions qui sopra.
 Quindi sono andato a rifare il grafico di mat_plot usando i dati originari, in verde abbiamo la parte del test, in rosso i valori che ci vengono fuori.
 Ovviamente in parole povere la distanza tra i due raprresente l'errore riscontrato nel nostro grafico.
+
+Nei 3 video successivi mostra la differenza tra il mae il mse, calcolandoli separatamente (il codice resta sempre -> tf.keras.losses.mae() ).
+Questi video non mi sembvravano importanti, l'unica cosa importante è (come al solito) fare attenzione alla shape dei tensori.
+Potevo scriverli anche entrambi con questa sintassi: tf.keras.losses.mae
+
+---------------------------Setting up TensorFlow modelling experiments part 1 (start with a simple model)-----------------
+
+Running experiments to improve a model
+After seeing the evaluation metrics and the predictions your model makes, it's likely you'll want to improve it.
+
+Again, there are many different ways you can do this, but 3 of the main ones are:
+
+Get more data - get more examples for your model to train on (more opportunities to learn patterns).
+Make your model larger (use a more complex model) - this might come in the form of more layers or more hidden units in each layer.
+Train for longer - give your model more of a chance to find the patterns in the data.
