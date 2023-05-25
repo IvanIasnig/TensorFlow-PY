@@ -226,7 +226,7 @@ print(mse)
 """
 
 # Setting up TensorFlow modelling experiments part 1 (start with a simple model)
-"""
+
 X = tf.range(-100, 100, 4)
 
 y = X + 10
@@ -271,11 +271,10 @@ def mse(y_test, y_pred):
 mae_1 = mae(y_test, y_preds_1.squeeze()).numpy()
 mse_1 = mse(y_test, y_preds_1.squeeze()).numpy()
 print(mae_1, mse_1)
-"""
 
 # Setting up TensorFlow modelling experiments part 2 (increasing complexity)
 
-"""
+
 X = tf.range(-100, 100, 4)
 
 y = X + 10
@@ -318,9 +317,38 @@ def mse(y_test, y_pred):
                                        y_pred)
 
 # Calculate model_2 metrics
-mae_1 = mae(y_test, y_preds_1.squeeze()).numpy()
-mse_1 = mse(y_test, y_preds_1.squeeze()).numpy()
+mae_2 = mae(y_test, y_preds_1.squeeze()).numpy()
+mse_2 = mse(y_test, y_preds_1.squeeze()).numpy()
 print(mae_1, mse_1)
-"""
+
 
 # Comparing and tracking your TensorFlow modelling experiments
+
+import pandas as pd
+
+
+model_results = [["model_1", mae_1, mse_1],
+                 ["model_2", mae_2, mse_2],
+                 ]
+
+all_results = pd.DataFrame(model_results, columns=["model", "mae", "mse"])
+print(all_results)
+
+
+# How to save a TensorFlow model
+
+model_2.save('prova_salvataggio_modello')
+
+model_2.save('prova_salvataggio_modello.h5') #modello salvato in hdf5 format
+
+#How to load and use a saved TensorFlow model
+
+loaded_saved_model = tf.keras.models.load_model("prova_salvataggio_modello")
+print(loaded_saved_model.summary())
+
+loaded_saved_model = tf.keras.models.load_model("prova_salvataggio_modello.h5")
+print(loaded_saved_model.summary()) #ovviamente i summary dei due modelli sono uguali
+
+model_2_preds = model_2.predict(X_test)
+saved_model_preds = loaded_saved_model.predict(X_test)
+print(mae(y_test, saved_model_preds.squeeze()).numpy() == mae(y_test, model_2_preds.squeeze()).numpy()) #questo pezzo di codice serve solo a vedere se l'import è corretto, ovviamente il modello e il modello salvato sono identici quindi abbiamo come risultato "true"

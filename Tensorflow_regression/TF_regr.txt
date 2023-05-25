@@ -237,3 +237,27 @@ Ad esempio, immagina di avere un insieme di immagini di gatti e cani e vuoi che 
 Pertanto, gli hidden layers sono fondamentali per l'apprendimento profondo e l'apprendimento di rappresentazioni complesse dei dati.
 
 ------------------------ Comparing and tracking your TensorFlow modelling experiments--------------
+
+🔑 Note: One of your main goals should be to minimize the time between your experiments. 
+The more experiments you do, the more things you'll figure out which don't work and in turn, 
+get closer to figuring out what does work. Remember the machine learning practitioner's motto:
+ "experiment, experiment, experiment".
+
+We've done a simple version of this above (keeping the results in different variables).
+
+📖 Resource: But as you build more models, you'll want to look into using tools such as:
+TensorBoard - a component of the TensorFlow library to help track modelling experiments (we'll see this later).
+Weights & Biases - a tool for tracking all kinds of machine learning experiments (the good news for Weights & Biases is it plugs into TensorBoard).
+
+---------------------- How to save a TensorFlow model ---------------------------------
+
+
+
+1. `model_2.save('prova_salvataggio_modello')`: Questo comando salva il tuo modello nel formato SavedModel di TensorFlow. SavedModel è un formato che include sia la struttura del modello
+(la sua architettura) che i suoi pesi. È un formato molto flessibile che ti permette di salvare modelli interi, così come parti di modelli o persino computation graphs. 
+Può essere utilizzato sia con TensorFlow che con TensorFlow Serving, il che lo rende utile se si prevede di distribuire il modello in produzione.
+
+2. `model_2.save('prova_salvataggio_modello.h5')`: Questo comando salva il tuo modello nel formato HDF5, che è un formato di dati comune per le grandi matrici numeriche,
+come i pesi di un modello di apprendimento automatico. Quando salvi un modello Keras nel formato HDF5, vengono salvati sia la struttura del modello che i suoi pesi.
+Anche se questo formato è meno flessibile del formato SavedModel (ad esempio, non può salvare computation graphs personalizzati), può essere più semplice da utilizzare in alcuni casi,
+in particolare se stai lavorando esclusivamente con Keras e non hai bisogno delle funzionalità extra di TensorFlow.
