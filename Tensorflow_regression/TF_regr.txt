@@ -261,3 +261,94 @@ Può essere utilizzato sia con TensorFlow che con TensorFlow Serving, il che lo 
 come i pesi di un modello di apprendimento automatico. Quando salvi un modello Keras nel formato HDF5, vengono salvati sia la struttura del modello che i suoi pesi.
 Anche se questo formato è meno flessibile del formato SavedModel (ad esempio, non può salvare computation graphs personalizzati), può essere più semplice da utilizzare in alcuni casi,
 in particolare se stai lavorando esclusivamente con Keras e non hai bisogno delle funzionalità extra di TensorFlow.
+
+(Nella lezione 61 mostra come salvare e scaricare un modello da Google Colab)
+
+
+Ecco un riassunto dettagliato del tuo codice:
+
+1. Iniziamo con l'importazione di pandas e l'impostazione di `display.max_columns` su `None` per visualizzare tutte le colonne di un DataFrame quando viene stampato:
+
+   ```
+   import pandas as pd
+   pd.set_option('display.max_columns', None)
+   ```
+
+2. Successivamente, leggiamo un file CSV da un URL utilizzando `pd.read_csv()`. Il file contiene dati sull'assicurazione sanitaria:
+
+   ```
+   insurance = pd.read_csv("https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv")
+   ```
+
+3. Utilizziamo l'one-hot encoding per convertire le variabili categoriche in una forma che possiamo dare al modello di machine learning. Questo viene fatto utilizzando la funzione `pd.get_dummies()`:
+
+   ```
+   insurance_one_hot = pd.get_dummies(insurance)
+   ```
+
+4. Successivamente, separiamo le feature (X) e la label (y). Le feature sono tutte le colonne eccetto "charges", che è la label che stiamo cercando di prevedere:
+
+   ```
+   X = insurance_one_hot.drop("charges", axis=1)
+   y = insurance_one_hot["charges"]
+   ```
+
+5. Ora suddividiamo i dati in un set di training e un set di test usando la funzione `train_test_split()` di scikit-learn. Il 80% dei dati sarà utilizzato per l'addestramento e il 20% per il test:
+
+   ```
+   from sklearn.model_selection import train_test_split
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+   ```
+
+6. Poi impostiamo il seme per il generatore di numeri casuali di TensorFlow per garantire che i risultati siano riproducibili:
+
+   ```
+   tf.random.set_seed(42)
+   ```
+
+7. Creiamo il modello di rete neurale utilizzando l'API Sequenziale di TensorFlow. Il modello consiste in tre livelli:
+
+   - Un livello nascosto con 100 unità.
+   - Un altro livello nascosto con 10 unità.
+   - Un livello di output con 1 unità (per prevedere la "charge").
+
+   ```
+   insurance_model_2 = tf.keras.Sequential([
+     tf.keras.layers.Dense(100), 
+     tf.keras.layers.Dense(10), 
+     tf.keras.layers.Dense(1) 
+   ])
+   ```
+
+8. Compiliamo il modello con la loss Mean Absolute Error (MAE), l'ottimizzatore Adam, e impostiamo MAE come metrica per il monitoraggio durante l'addestramento:
+
+   ```
+   insurance_model_2.compile(loss=tf.keras.losses.mae,
+                             optimizer=tf.keras.optimizers.Adam(), 
+                             metrics=['mae'])
+   ```
+
+9. Addestriamo il modello per 115 epoche e salviamo la storia dell'addestramento per una successiva visualizzazione:
+
+   ```
+   history = insurance_model_2.fit(X_train, y_train, epochs=115)
+   ```
+
+10. Valutiamo il modello sul set di test:
+
+    ```
+    print(insurance_model_2.evaluate(X_test, y_test))
+    ```
+
+11. Infine, tracciamo la curva di perdita (loss curve) per visualizzare come la perdita del modello sia cambiata durante l'addestramento. Creiamo un DataFrame da `history.history`, quindi utilizziamo la funzione `plot()` di pandas. Impostiamo anche le etichette degli assi x e y:
+
+    ```
+    pd.DataFrame(history.history).plot()
+    plt.ylabel("loss")
+    plt.xlabel("epochs");
+    plt.show() 
+    ```
+
+Questo plot può aiutarti a capire se il tuo modello soffre di overfitting o underfitting. Se la perdita sui dati di training continua a diminuire mentre la perdita sui dati di validazione inizia ad aumentare, il modello sta overfittando i dati di training. D'altro canto, se entrambe le perdite continuano a diminuire senza divergere, allora il modello potrebbe beneficiare di ulteriori epoche di addestramento.
+
+In sintesi, questo codice legge un dataset sull'assicurazione sanitaria, prepara i dati per l'addestramento, addestra una rete neurale per prevedere le spese di assicurazione sulla base di varie feature, valuta il modello e poi visualizza la curva di perdita.
