@@ -2,6 +2,9 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.compose import make_column_transformer
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 
 """
 X = np.array([-7.0, -4.0, -1.0, 2.0, 5.0, 8.0, 11.0, 14.0]) # Create features
@@ -352,7 +355,7 @@ saved_model_preds = loaded_saved_model.predict(X_test)
 print(mae(y_test, saved_model_preds.squeeze()).numpy() == mae(y_test, model_2_preds.squeeze()).numpy()) #questo pezzo di codice serve solo a vedere se l'import è corretto, ovviamente il modello e il modello salvato sono identici quindi abbiamo come risultato "true"
 """
 # Putting together what we've learned part 1 (preparing a dataset)
-
+"""
 pd.set_option('display.max_columns', None) #per fare in modo che pandas mi mostri tutte le colonne e non mi mostri i puntini di sospensione 
 
 insurance = pd.read_csv("https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv")
@@ -425,3 +428,86 @@ person_x = pd.DataFrame({'age': [30],
 prediction = insurance_model_2.predict(person_x)
 
 print("insurance cost: ", prediction[0][0])
+"""
+#Preprocessing data with feature scaling
+"""
+# Read in the insurance dataset
+insurance = pd.read_csv("https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv")
+     
+
+# Check out the data
+insurance.head()
+
+# Create column transformer (this will help us normalize/preprocess our data)
+ct = make_column_transformer(
+    (MinMaxScaler(), ["age", "bmi", "children"]), # get all values between 0 and 1
+    (OneHotEncoder(handle_unknown="ignore"), ["sex", "smoker", "region"])
+)
+
+# Create X & y
+X = insurance.drop("charges", axis=1)
+y = insurance["charges"]
+
+
+# Build our train and test sets (use random state to ensure same split as before)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Fit column transformer on the training data only (doing so on test data would result in data leakage)
+ct.fit(X_train)
+
+# Transform training and test data with normalization (MinMaxScalar) and one hot encoding (OneHotEncoder)
+X_train_normal = ct.transform(X_train)
+X_test_normal = ct.transform(X_test)
+     
+
+# Non-normalized and non-one-hot encoded data example
+print(X_train.loc[0])
+
+# Normalized and one-hot encoded example
+print(X_train_normal[0])
+
+# View features
+print(X.head())
+
+# Set random seed
+tf.random.set_seed(42)
+
+# Build the model (3 layers, 100, 10, 1 units)
+insurance_model_3 = tf.keras.Sequential([
+  tf.keras.layers.Dense(100),
+  tf.keras.layers.Dense(10),
+  tf.keras.layers.Dense(1)
+])
+
+# Compile the model
+insurance_model_3.compile(loss=tf.keras.losses.mae,
+                          optimizer=tf.keras.optimizers.Adam(),
+                          metrics=['mae'])
+
+# Fit the model for 200 epochs (same as insurance_model_2)
+insurance_model_3.fit(X_train_normal, y_train, epochs=115)
+
+
+# Evaulate 3rd model
+insurance_model_3_loss, insurance_model_3_mae = insurance_model_3.evaluate(X_test_normal, y_test)
+
+
+# Compare modelling results from non-normalized data and normalized data
+print(insurance_model_3_mae)
+
+# Crea il DataFrame per person_x
+person_x = pd.DataFrame({'age': [30],
+                         'bmi': [30],
+                         'children': [1],
+                         'sex': ['female'],
+                         'smoker': ['no'],
+                         'region': ['northeast']})
+
+# Trasforma person_x utilizzando il ColumnTransformer
+person_x_transformed = ct.transform(person_x)
+
+# Utilizza il modello per fare la previsione
+prediction = insurance_model_3.predict(person_x_transformed)
+
+print("Costo dell'assicurazione: ", prediction[0][0])
+"""
