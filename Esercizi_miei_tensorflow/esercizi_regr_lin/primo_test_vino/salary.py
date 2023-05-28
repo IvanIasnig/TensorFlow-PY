@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-wine = pd.read_csv('./winered.csv', delimiter=';') 
+wine = pd.read_csv('./primo_test_vino/redwine.csv', delimiter=';') 
 
 X = wine.drop("quality", axis=1)
 y = wine["quality"]
@@ -44,7 +44,6 @@ for i in range(30):
     print("---")
 
 
-#vino ottimo di prova
 new_wine = pd.DataFrame({
     "fixed acidity": [7.5],
     "volatile acidity": [0.2],
