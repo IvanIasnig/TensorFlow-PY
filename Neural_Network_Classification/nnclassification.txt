@@ -1,0 +1,13 @@
+classificazion:
+
+binary -> es: spam or not spam email
+multiclass classification -> more than one thing or another -> es: is this a photo of pizza, sushi or hamburger?
+multilabel classification -> multilabel option per sample -> es: what tags should this article have?
+
+nel caso della multiclass classification avrò come output un array di pobabilità [0.96, 0.01, 0.03] ->quindi abbiamo il 96% di probabilità che sia una pizza, il 0.01 che sia sushi e il 0.03 che sia un hamburger
+come shape avremo Shape = [batch_size, width, height, colour channels] -> es: [32, 224, 224, 3]
+vedremo più avavntio cosa è la batch_size, 32 comunque è un valore tipico.
+la shape dell'output quindi in questo caso è ovviamente 3.
+
+extra: http://karpathy.github.io/2019/04/25/recipe/
+

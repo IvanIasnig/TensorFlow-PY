@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-wine = pd.read_csv('./primo_test_vino/redwine.csv', delimiter=';') 
+wine = pd.read_csv('./redwine.csv', delimiter=';') 
 
 X = wine.drop("quality", axis=1)
 y = wine["quality"]
@@ -53,9 +53,9 @@ new_wine = pd.DataFrame({
     'free sulfur dioxide': [45],
     'total sulfur dioxide': [140],
     'density': [0.992],
-    'pH': [3.35],
+    'pH': [0.35],
     'sulphates': [0.6],
-    'alcohol': [13.5]
+    'alcohol': [1.5]
 })
 
 
